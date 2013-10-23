@@ -161,5 +161,7 @@ public class ClientProg {
 				borrower.borrowedLibrary.add(borrowed);
 			}
 		}
+		Interface intrfc = new Interface(UserList);
+		intrfc.runOutput();
 	}	
 }
