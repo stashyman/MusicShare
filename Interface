@@ -1,0 +1,14 @@
+//Interface
+import java.util.LinkedList;
+
+public class Interface{
+	private UserManager UM;
+	
+	public Interface(LinkedList<User> Users){
+		UM = new UserManager(Users);
+	}
+	
+	public void runOutput(){
+		
+	}
+}
