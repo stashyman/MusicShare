@@ -1,12 +1,15 @@
+
 //UserManager
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Enumeration;
 
 public class UserManager{
 	private Hashtable<String, User> Users;
 	private String currentUser;
 	
+	/*Constructor*/
 	public UserManager(LinkedList<User> _Users){
 		Users = new Hashtable<String, User>();
 		ListIterator UI = _Users.listIterator();
@@ -15,6 +18,8 @@ public class UserManager{
 			Users.put(temp.getUsername(), temp);
 		}
 	}
+	
+	
 	public void addUser(User _user){
 		Users.put(_user.getUsername(), _user);
 	}
@@ -32,6 +37,33 @@ public class UserManager{
 			return false;
 		}
 	}
+	public LinkedList<String> getUserNames(){//returns a linked list of all the keys(user names)
+		Enumeration<String> e = Users.keys();
+		LinkedList<String> ll = new LinkedList<String>();
+		while(e.hasMoreElements()){
+			ll.add(e.nextElement());
+		}
+		return ll;
+	}
+	
+	public LinkedList<User> getUsers(){//returns a linked list of all the users
+		Enumeration<User> e = Users.elements();
+		LinkedList<User> ll = new LinkedList<User>();
+		while(e.hasMoreElements()){
+			ll.add(e.nextElement());
+		}
+		return ll;
+	}
+	
+	public void sendFriendRequest(String receiver, String message){//add a message to the receivers message linkedlist
+		FriendRequest FR = new FriendRequest(Users.get(currentUser), Users.get(receiver), message);
+		Users.get(receiver).addMessage(FR);
+	}
+	
+	public Message getFirstMessage(){//grabs the first element in the list, removes it from the list, and returns the message
+		return Users.get(currentUser).getFirstMessage();	
+	}
+	
 
 	
 }
