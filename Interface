@@ -9,6 +9,12 @@ public class Interface{
 	}
 	
 	public void runOutput(){
+		LinkedList<User> ll = UM.getUsers();
+		ListIterator it = ll.listIterator();
+		while(it.hasNext()){
+			User temp = (User)it.next();
+			System.out.println("Name: " + temp.getUsername() + ", " + "Password: " + temp.getPassword());
+		}
 		
 	}
 }
