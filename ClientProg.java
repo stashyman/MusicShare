@@ -66,7 +66,7 @@ public class ClientProg {
 					}
 				}
 				newuser = new User(userdata[0],userdata[1]);
-				UserList.add(newuser);
+				
 
 			}
 			//Create Songs
@@ -111,6 +111,7 @@ public class ClientProg {
 			//Clear SongList to do it again
 			lib = new Library(newuser, SongList);
 			LibraryList.add(lib);
+			UserList.add(newuser);
 			SongList.clear();
 			
 		}
