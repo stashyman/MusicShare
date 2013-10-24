@@ -1,5 +1,5 @@
 import java.util.LinkedList;
-
+import java.util.ListIterator;
 
 public class User {
 	//Users only have username, password, and friends list. Do we need any more?
@@ -77,6 +77,9 @@ public class User {
 	}
 	public Message getFirstMessage(){
 		return messages.removeFirst();
+	}
+	public LinkedList<Song> getOwnedLibrary(){
+		return ownedLibrary;
 	}
 	
 }
