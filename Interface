@@ -1,4 +1,4 @@
-//Interface
+//Interface No longer needed
 import java.util.LinkedList;
 
 public class Interface{
