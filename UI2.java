@@ -6,10 +6,9 @@ import java.util.ListIterator;
 public class UI {
 private UserManager UM;
 private String current;
+private LinkedList<Song> temm = new LinkedList<Song>();
 	public UI(LinkedList<User> Users){
 		UM = new UserManager(Users);
-		//System.out.println("Please Enter a Username");
-		//Scanner read = new Scanner(System.in);
 		
 	}
 	public void Login() {
@@ -85,28 +84,36 @@ private String current;
 								int songr = Integer.parseInt(songrequest);
 								System.out.println();
 								for(int i = 0; i < UM.getUsers().size(); i++) {
-									if(UM.getUsers().get(i).getUsername().equals(current)) {
+									if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
 											System.out.println("You are currently playing the song titled " + UM.getUsers().get(i).ownedLibrary.get(songr-1).getName());
 											playable = true;
 									}
 								}
 								if(playable == false) {
-									System.out.println("You do not have the option to play that song. Please enter a song from your Library.");
+									System.out.println("You do not have the option to play that song. Please enter a valid number from above.");
 								}
 								playable = false;
 								break;
 							}
 							case "2": {
 								// play playlist method here. We can list the playlist available to play here
-							
+								System.out.println("Hello " + current + " this is the list of your available playlists. Please select one of the numbers to play.");
+								for(int i = 0; i < UM.getUsers().size(); i++) {
+									if(UM.getUsers().get(i).getUsername().equals(current)) {
+										for(int j = 0; j < UM.getUsers().get(i).playList.size(); j++) {
+											for(int k = 0; k < UM.getUsers().get(i).playList.get(j).size(); k++) {
+												System.out.println(k+1 + ": " + UM.getUsers().get(i).playList.get(j));
+											}
+										}
+									}
+								}
 								break;
 							}
 							case "3":{
 								break;
 							}
 							default: {
-								System.out
-								.println("Invalid input. Please enter one of the numerical values above.");
+								System.out.println("Invalid input. Please enter one of the numerical values above.");
 								break;
 							}
 						}
@@ -128,15 +135,138 @@ private String current;
 							break;
 						}
 						case "2": {
+							//Need to create multiple playlists.
+							for(int i = 0; i < UM.getUsers().size(); i++) {
+								if(UM.getUsers().get(i).getUsername().equals(current)) {
+									System.out.println("Hello " + current + " this is the list of songs you can add to your playlist. Type the number of the song you would like to add to a playlist.");
+									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.size(); j++) {
+										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.get(j));
+									}
+								}
+							}
+							boolean playable = false;
+							String songrequest = reader.next();
+							int songr = Integer.parseInt(songrequest);
+							if(playable == false) {
+								System.out.println("You do not have the option to play that song. Please enter a valid option from above.");
+							}
+							playable = false;
+							
 							//create playlist
 							break;
 						}
 						case "3": {
+							for(int i = 0; i < UM.getUsers().size(); i++) {
+								if(UM.getUsers().get(i).getUsername().equals(current)) {
+									System.out.println("Hello " + current + " this is the list of songs you can add to your playlist. Type the number of the song you would like to add to a playlist.");
+									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.size(); j++) {
+										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.get(j));
+									}
+								}
+							}
 							////edit playlist
 							break;
 						}
 						case "4": {
-							//edit song here
+							String songchange = "";
+							for(int i = 0; i < UM.getUsers().size(); i++) {
+								if(UM.getUsers().get(i).getUsername().equals(current)) {
+									System.out.println("Hello " + current + " this is the list of songs you can edit. Type the number of the song you would like to edit.");
+									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.size(); j++) {
+										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.get(j));
+									}
+								}
+							}
+							boolean playable = false;
+							String songrequest = reader.next();
+							int songr = Integer.parseInt(songrequest);
+							System.out.println();
+							for(int i = 0; i < UM.getUsers().size(); i++) {
+								if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
+										playable = true;
+								}
+							}
+							if(playable == false) {
+								System.out.println("You do not have the option to play that song. Please enter a valid number from above.");
+							}
+							//Loop to change the song's metadata.
+							while(playable == true && !songchange.equals("exit")) {
+								System.out.println("Which part of the song would you like to change? Please enter either the Name, Album, Artist, Year, Composer, or Genre");
+								songchange = reader.next();
+								
+								if(songchange.equals("Name")) {
+									System.out.println("What will the new song's name be?");
+									songchange = reader.next();
+									for(int i = 0; i < UM.getUsers().size(); i++) {
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
+											    UM.getUsers().get(i).ownedLibrary.get(songr-1).setName(songchange);
+												playable = false;
+										}
+									}
+									System.out.println("The name has been changed to " + songchange + ".");
+								}
+								else if(songchange.equals("Album")) {
+									System.out.println("What will the new song's album be?");
+									songchange = reader.next();
+									for(int i = 0; i < UM.getUsers().size(); i++) {
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
+											UM.getUsers().get(i).ownedLibrary.get(songr-1).setAlbum(songchange);
+											playable = false;
+										}
+									}
+									System.out.println("The album title has been changed to " + songchange + ".");
+								}
+								else if(songchange.equals("Artist")) {
+									System.out.println("Who will be the new song's artist?");
+									songchange = reader.next();
+									for(int i = 0; i < UM.getUsers().size(); i++) {
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
+											UM.getUsers().get(i).ownedLibrary.get(songr-1).setArtist(songchange);
+											playable = false;
+										}
+									}
+									System.out.println("The artist has been changed to " + songchange + ".");
+								}
+								else if(songchange.equals("Year")) {
+									System.out.println("What will be the new song's year?");
+									songchange = reader.next();
+									for(int i = 0; i < UM.getUsers().size(); i++) {
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
+											    UM.getUsers().get(i).ownedLibrary.get(songr-1).setYear(songchange);
+												playable = false;
+										}
+									}
+									System.out.println("The year has been changed to " + songchange + ".");
+								}
+								else if(songchange.equals("Composer")) {
+									System.out.println("Who will be the new song's composer?");
+									songchange = reader.next();
+									for(int i = 0; i < UM.getUsers().size(); i++) {
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
+											UM.getUsers().get(i).ownedLibrary.get(songr-1).setComposer(songchange);
+											playable = false;
+										}
+									}
+									System.out.println("The composer has been changed to " + songchange + ".");
+								}
+								else if(songchange.equals("Genre")) {
+									System.out.println("What will be the new song's genre?");
+									songchange = reader.next();
+									for(int i = 0; i < UM.getUsers().size(); i++) {
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
+											UM.getUsers().get(i).ownedLibrary.get(songr-1).setGenre(songchange);
+											playable = false;
+										}
+									}
+									System.out.println("The genre has been changed to " + songchange + ".");
+								}
+								else{
+									System.out.println("Please enter one of the options above. Please try again or type exit to go back.");
+									playable = true;
+									break;
+								}
+								
+							}
 							break;
 						}
 						case "5": {
@@ -144,8 +274,7 @@ private String current;
 							break;
 						}
 						default: {
-							System.out
-							.println("Invalid input. Please enter one of the numerical values above.");
+							System.out.println("Invalid input. Please enter one of the numerical values above.");
 							break;
 						}
 				
