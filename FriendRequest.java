@@ -1,7 +1,7 @@
-public class FriendRequest extends Message {
 
-	public FriendRequest(User sender_, User recipiant_, String message_) {
-		super(sender_, recipiant_, message_);
+public class FriendRequest extends Message {
+	public FriendRequest(User sender_, User recipiant_, String message_, String type_) {
+		super(sender_, recipiant_, message_, type_);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -14,5 +14,13 @@ public class FriendRequest extends Message {
 	//find the recipiant and the sender and send a message saying that they have been denied
 	public boolean Denied() {
 		return false;
+	}
+	public String getType() {
+		return type;
+	}
+	public String toString() {
+		return "From: "+ sender.getUsername() + 
+				"\nTo: "+ recipiant.getUsername() + "\n"+
+				message;
 	}
 }
