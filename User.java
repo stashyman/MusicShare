@@ -67,10 +67,8 @@ public class User {
 	public void setPassword(String nPass){
 		password = nPass;
 	}
-	public void getMessages() {
-		for(int i = 0; i < messages.size(); i++) {
-			System.out.println(messages.get(i));
-		}
+	public LinkedList<Message> getMessages() {
+		return messages;
 	}
 	public Message getFirstMessage(){
 		return messages.element();
