@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 
 public class Library {
@@ -6,6 +7,9 @@ public class Library {
 	private User Owner;
 	private LinkedList<Song> Library = new LinkedList<Song>();
 
+	public Library(){
+		
+	}
 	public Library(User s, LinkedList<Song> lib) {
 		Owner = s;
 		Library = lib;
@@ -13,5 +17,16 @@ public class Library {
 	public User getOwner() {
 		return Owner;
 	}
+	public LinkedList<Song> getSongs(){
+		return Library;
+	}
+	
+	public void sortLib(LinkedList ll, Sort _sort){
+		LinkedList sorted = new LinkedList();
+		ListIterator li = sorted.listIterator();
+		
+	}
+
+	
 	
 }
