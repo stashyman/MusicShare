@@ -93,11 +93,11 @@ private String current;
 		System.out.println("Please enter one of the options below.\n");
 		System.out.println("\n");
 		String a = "";
-		while (a != "3") {
+		while (true) {
 			System.out
 			.println("\n1. Listen to song/playlist\n\n2. add playlist/song or edit song/playlist\n\n3. borrow/take back song\n\n"
-					+ "4. Profile settings\n\n5. check messages or send a friend request\n\n"
-					+ "6. browse for songs\n\n7. log out\n\n8. Admin/Testing\n\nEnter one of the numbers above.\n");
+					+ "4. Profile settings\n\n5. check messages or send a friend/borrowing requests\n\n"
+					+ "6. browse for songs\n\n7. log out/switch user\n\n8. Admin/Testing\n\nEnter one of the numbers above.\n");
 			Scanner reader = new Scanner(System.in);
 			String s;
 			s = reader.next();
@@ -427,10 +427,50 @@ private String current;
 				b = reader.next();
 				switch (b) {
 						case "1": {
+							boolean flag = false;
+							for(int i = 0; i < UM.getUsers().size(); i++){
+								if(UM.getUsers().get(i).getUsername().equals(current)) {
+									if(UM.getUsers().get(i).getMessages().size() == 0) {
+										System.out.println("Hello " + current + " you have no new messages.");
+										flag = true;
+									}
+								}
+							}
+							if(flag == true) {
+								break;
+							}
 							System.out.println("Hello " + current + " here are your messages.");
-						for(int i = 0; i < UM.getUsers().size(); i++){
-							if(UM.getUsers().get(i).getUsername().equals(current)) {
-									UM.getUsers().get(i).getMessages();
+						for(int i = 0; i < UM.getUsers().size(); i++) {
+							if(UM.getUsers().get(i).getUsername().equals(current) && UM.getUsers().get(i).getMessages().size() != 0) {
+									System.out.println(UM.getUsers().get(i).getFirstMessage());
+									UM.getUsers().get(i).getFirstMessage();
+									String sender = UM.getUsers().get(i).getFirstMessage().sender.getUsername();
+									System.out.println("Would you like to accept or deny the request? Type yes to accept and no to deny.");
+									String request = "";
+							while(true) {
+									request = reader.next();
+									if(request.equals("yes")) {
+										if(UM.getUsers().get(i).getFirstMessage().type.equals("f")) {
+											System.out.println("That user has been added to your friends list.");
+											UM.getUsers().get(i).addFriends(sender);
+											for(int j = 0; j < UM.getUsers().size(); j++) {
+												if(UM.getUsers().get(j).getUsername().equals(sender)) {
+													UM.getUsers().get(j).addFriends(current);
+												}
+											}
+										}
+										UM.getUsers().get(i).getMessages().removeFirst();
+										break;
+									
+									}
+									else if(request.equals("no")) {
+										System.out.println("That user has not been added to your friends list.");
+										break;
+									}
+									else {
+										System.out.println("Please enter a valid response. The responses are yes or no.");
+									}
+							}
 							}
 						}
 							//check message
@@ -483,7 +523,7 @@ private String current;
 							}
 							//if the user is logged in and is on the friends list then send the request.
 							if(loggedin == true && (friendslist == false)) {
-								FriendRequest friend = new FriendRequest(sender, receiver, "You have a new friend request from " + current);
+								FriendRequest friend = new FriendRequest(sender, receiver, "You have a new friend request from " + current, "f");
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(friendrequest)) {
 										UM.getUsers().get(i).addMessage(friend);
@@ -559,7 +599,7 @@ private String current;
 									if(UM.getUsers().get(i).getUsername().equals(songrequest) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
 										for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
 											if(sent == false) {
-											SongRequest newrequest = new SongRequest(sender, receiver, "You have a new song request for the song " + UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).getName() + " from " + current);
+											SongRequest newrequest = new SongRequest(sender, receiver, "You have a new song request for the song " + UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).getName() + " from " + current, "b");
 											UM.getUsers().get(i).addMessage(newrequest);
 											sent = true;
 											System.out.println("Your request has been sent.");
@@ -595,7 +635,34 @@ private String current;
 				b = reader.next();
 				switch (b) {
 						case "1": {
-							//search by friend
+							System.out.println("Which friend's library would you like to see? Enter the number of the friend whose library you would like to view.");
+							
+							for(int i = 0; i < UM.getUsers().size(); i++) {
+								if(UM.getUsers().get(i).getUsername().equals(current)) {
+									
+									System.out.println("Here is a list of your friends");
+									for(int j = 0; j < UM.getUsers().get(i).getFriends().size(); j++) {
+										System.out.println(j+1 + ": " + UM.getUsers().get(i).getFriends().get(j));
+									}
+								}
+							}
+							String songrequest = reader.next();
+							int songr = Integer.parseInt(songrequest);
+							String username = "";
+							for(int i = 0; i < UM.getUsers().size(); i++) {
+								if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).getFriends().size()) {
+									username = UM.getUsers().get(i).getFriends().get(songr-1);
+								}
+							}
+							int k = 1;
+							for(int i = 0; i < UM.getUsers().size(); i++) {
+								if(UM.getUsers().get(i).getUsername().equals(username)) {
+									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
+									System.out.println(k + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
+									k++;
+									}
+								}
+							}
 							break;
 						}
 						case "2": {
