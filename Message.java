@@ -1,10 +1,13 @@
+
 public class Message {
 	protected User sender;
 	protected User recipiant;
 	protected String message;
-	public Message(User sender_, User recipiant_, String message_) {
+	protected String type;
+	public Message(User sender_, User recipiant_, String message_, String type_) {
 		sender = sender_;
 		recipiant = recipiant_;
 		message = message_;
+		type = type_;
 	}
 }
