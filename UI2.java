@@ -11,12 +11,46 @@ private LinkedList<Song> temm = new LinkedList<Song>();
 		UM = new UserManager(Users);
 		
 	}
+	public void SwitchUser() {
+		boolean login = false;
+		while(login == false){
+			boolean alreadyloggedin = false;
+			System.out.println("Please Enter a Username or type exit to quit the program.");
+			Scanner read = new Scanner(System.in);
+			String t = read.next();
+			if(t.equals("exit")) {
+				System.out.println("Goodbye.");
+				System.exit(0);
+			}
+			System.out.println("Please Enter password for " + t + ".");
+			String q = read.next();
+			LinkedList<User> ll1 = UM.getUsers();
+			ListIterator it1 = ll1.listIterator();
+			while(it1.hasNext()){
+				User temp = (User)it1.next();
+				if(temp.getUsername().equals(t)) {
+					if(temp.getPassword().equals(q)) {
+						System.out.println("Login Successful \n");
+						login = true;
+						current = t;	
+					}
+				}
+				
+			}
+			if(login == false) {
+				System.out.println("Incorrect Username or Password. Please try again. \n");
+			}
+			runOutput();
+		}	
+	}
 	public void Login() {
 		while(true) {
 		
 		LinkedList<String> currently = new LinkedList<String>();
 		boolean login = false;
+		
 		while(login == false){
+			boolean alreadyloggedin = false;
 			System.out.println("Please Enter a Username or type exit to quit the program.");
 			Scanner read = new Scanner(System.in);
 			String t = read.next();
@@ -37,6 +71,9 @@ private LinkedList<Song> temm = new LinkedList<Song>();
 						current = t;
 						UM.setCurrentUser(t);
 						UM.Loggedin.add(t);
+						//Don't add multiple users to logged in list when switching users.
+						
+						
 					}
 				}
 				
@@ -293,10 +330,13 @@ private LinkedList<Song> temm = new LinkedList<Song>();
 				b = reader.next();
 				switch (b) {
 						case "1": {
+							//Need to set a count for how many times someone can borrow a song.
+							System.out.println("Hello " + current + " who would you like to borrow a song from? The user must be logged into the system.");
 							//borrow song
 							break;
 						}
 						case "2": {
+							System.out.println("Hello " + current + " who would you like to take a song back from? The user must be logged into the system.");
 							//take back song
 							break;
 						}
@@ -323,6 +363,19 @@ private LinkedList<Song> temm = new LinkedList<Song>();
 				b = reader.next();
 				switch (b) {
 						case "1": {
+							System.out.println("Hello " + current + " how would you like to sort your Library? You can sory by Artist, Song Name, Song Year, Song Album, Or the Genre. Please Enter one of the options to sort the song by.");
+							boolean sorted = false;
+							String sortoption = reader.next();
+							if(sortoption.equals("Artist")) {
+								for(int i = 0; i < UM.getUsers().size(); i++) {
+									if(UM.getUsers().get(i).getUsername().equals(current)) {
+										for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.size(); j++) {
+											Song sortsong = UM.getUsers().get(i).ownedLibrary.get(j);
+										}
+										
+									}
+								}
+							}
 							//sorting options
 							break;
 						}
@@ -353,15 +406,73 @@ private LinkedList<Song> temm = new LinkedList<Song>();
 			
 			while (b.equals("4") == false) {
 				System.out
-				.println("\n1. check messages\n\n2. send friend request \n\n2. Send Borrow request\n\n4. go back\n\nEnter one of the numbers above.\n");
+				.println("\n1. check messages\n\n2. send friend request \n\n3. Send Borrow request\n\n4. go back\n\nEnter one of the numbers above.\n");
 				b = reader.next();
 				switch (b) {
 						case "1": {
-							//check messages
+							System.out.println("Hello " + current + " here are your messages.");
+						for(int i = 0; i < UM.getUsers().size(); i++){
+							if(UM.getUsers().get(i).getUsername().equals(current)) {
+									UM.getUsers().get(i).getMessages();
+							}
+						}
+							//check message
 							break;
 						}
 						case "2": {
 							//send friend request
+							System.out.println("Hello " + current + " who would you like to send a friend request to? Please Enter the usename of the person you'd like to add.");
+							String friendrequest = reader.next();
+							boolean friendslist = false;
+							boolean loggedin = false;
+							User receiver = null;
+							User sender = null;
+							
+							if(current.equals(friendrequest)) {
+								System.out.println("You cannot send a friend request to yourself.");
+								loggedin = false;
+								friendslist = true;
+							}
+							//Check if not already on friends list
+							for(int i = 0; i < UM.getUsers().get(i).getFriends().size(); i++) {
+								if(UM.getUsers().get(i).getUsername().equals(current)) {
+								for(int j = 0; j < UM.getUsers().get(i).getFriends().size(); j++) {
+									if(friendrequest.equals(UM.getUsers().get(i).getFriends().get(j))) {
+										System.out.println("That user is already on your friends list.");
+										friendslist = true;
+									}
+								 }
+							  }
+							}
+							//Check if User is logged in.
+							for(int i = 0; i < UM.Loggedin.size(); i++) {
+								if(friendrequest.equals(UM.Loggedin.get(i))) {
+									loggedin = true;
+								}
+							}
+							if(loggedin == false) {
+								System.out.println("That user is not logged in. Can't send messages to users who have not logged in.");
+							}
+							//Grab the User object of the sender & receiver
+							for(int i = 0; i < UM.getUsers().size(); i++) {
+								if(UM.getUsers().get(i).getUsername().equals(current)) {
+									 sender = new User(UM.getUsers().get(i));
+								}
+								if(UM.getUsers().get(i).getUsername().equals(friendrequest)) {
+									receiver = new User(UM.getUsers().get(i));
+								}
+							}
+							//if the user is logged in and is on the friends list then send the request.
+							if(loggedin == true && (friendslist == false)) {
+								FriendRequest friend = new FriendRequest(sender, receiver, "You have a new friend request from " + current);
+								for(int i = 0; i < UM.getUsers().size(); i++) {
+									if(UM.getUsers().get(i).getUsername().equals(friendrequest)) {
+										UM.getUsers().get(i).addMessage(friend);
+									}
+								}
+								
+								System.out.println("Your request has been sent.");
+							}
 							break;
 						}
 						case "3": {
@@ -419,7 +530,28 @@ private LinkedList<Song> temm = new LinkedList<Song>();
 			break;
 			}
 			case "7":{
-				Login();
+				
+				String b = "";
+				while(b.equals("3") == false) {
+					System.out.println("\n1. Logout/Login as someone new\n\n2. Switch Users\n\n3. Go Back");
+					b = reader.next();
+					switch(b) {
+					case "1": {
+						Login();
+					}
+					case "2": {
+						SwitchUser();
+					}
+					case "3": {
+						break;
+					}
+					default: {
+						System.out.println("Invalid input, Please enter one of the options above");
+						break;
+					}
+					}
+				}
+				
 				return;
 			}
 			case "8":{
@@ -486,4 +618,5 @@ private LinkedList<Song> temm = new LinkedList<Song>();
 	}
 
 }
-}}
+}
+}
