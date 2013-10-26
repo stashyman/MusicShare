@@ -253,7 +253,7 @@ public class ClientProg {
 				}
 				Song newsong = new Song(songdata[0],songdata[1],songdata[2],songdata[3],songdata[4],songdata[5]);
 				SongList.add(newsong);
-				newuser.ownedLibrary.add(newsong);
+				newuser.ownedLibrary.getSongs().add(newsong);
 				lastindex = i;
 			}
 			//Create Friends
@@ -275,37 +275,37 @@ public class ClientProg {
 			//Create the new Library with the User and the SongList
 			//Clear SongList to do it again
 			lib = new Library(newuser, SongList);
+			LibraryList.add(lib);
 			UserList.add(newuser);//adding user to the list down here so it maintains all the other information read in
 			SongList.clear();
 
 		}
-
-		Song borrowed = new Song();
-		for(int j = 0; j < UserList.size(); j++) {
-			User lender = UserList.get(j);
-			if(lender.getUsername().equals("Rory")) {	
-				lender = UserList.get(j);
-				LinkedList<Song> lendersongs = lender.ownedLibrary;
-				//Run through Rorys Library
-				//Find Song that Brendan Wants to borrow from Rory
-				for(int i = 0; i < lendersongs.size(); i++) {
-					Song SO = lendersongs.get(i);
-					if(SO.getName().equals("Sail")) {
-						borrowed = lendersongs.get(i);
-					}
-				}
-			}
-			//Find Brendans Borrowed Library and add the song to it
-		}
-		for(int i = 0; i < UserList.size(); i++) {
-			User borrower = UserList.get(i); 
-			if(borrower.getUsername().equals("Brendan")) {
-				borrower.borrowedLibrary.add(borrowed);
-			}
-		}
-
 		UI ui = new UI(UserList);
-		ui.runOutput();
+		ui.Login();
+//		Song borrowed = new Song();
+//		for(int j = 0; j < UserList.size(); j++) {
+//			User lender = UserList.get(j);
+//			if(lender.getUsername().equals("Rory")) {	
+//				lender = UserList.get(j);
+//				LinkedList<Song> lendersongs = lender.ownedLibrary;
+//				//Run through Rorys Library
+//				//Find Song that Brendan Wants to borrow from Rory
+//				for(int i = 0; i < lendersongs.size(); i++) {
+//					Song SO = lendersongs.get(i);
+//					if(SO.getName().equals("Sail")) {
+//						borrowed = lendersongs.get(i);
+//					}
+//				}
+//			}
+//			//Find Brendans Borrowed Library and add the song to it
+//		}
+//		for(int i = 0; i < UserList.size(); i++) {
+//			User borrower = UserList.get(i); 
+//			if(borrower.getUsername().equals("Brendan")) {
+//				borrower.borrowedLibrary.add(borrowed);
+//			}
+//		}
+
+		
 	}	
 }
-
