@@ -1,8 +1,5 @@
-
 public class FriendRequest extends Message {
-	private User sender;
-	private User recipiant;
-	private String message;
+
 	public FriendRequest(User sender_, User recipiant_, String message_) {
 		super(sender_, recipiant_, message_);
 		// TODO Auto-generated constructor stub
