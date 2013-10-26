@@ -6,9 +6,8 @@ public class User {
 	private String username;
 	private String password;
 	private LinkedList<Message> messages = new LinkedList<Message>();
-	public LinkedList<Song> ownedLibrary = new LinkedList<Song>();
-	public LinkedList<Song> playableLibrary = new LinkedList<Song>();
-	public LinkedList<Song> borrowedLibrary = new LinkedList<Song>();
+	public Library ownedLibrary = new Library();
+	public Library playableLibrary = new Library();
 	private LinkedList<String> friends = new LinkedList<String>();
 	
 	public User(String username_, String password_, String friends_){
@@ -42,10 +41,7 @@ public class User {
 	}
 	
 	public void addSongsList(Song s) {
-		ownedLibrary.add(s);
-	}
-	public void addPlayableSongs(Song s) {
-		playableLibrary.add(s);
+		ownedLibrary.getSongs().add(s);
 	}
 	public void addFriends(String s) {
 		friends.add(s);
@@ -55,13 +51,12 @@ public class User {
 	}
 	public String getUsername() {
 		return username;
-		
 	}
-	public String getPassword(){//this may not be what we want but I needed a fast copy constructor
+	public String getPassword() {
 		return password;
 	}
 	public void addBorrowedSongs(Song s) {
-		borrowedLibrary.add(s);
+		playableLibrary.getSongs().add(s);
 	}
 	public void setUserName(String n) {
 		this.username = n;
@@ -72,14 +67,16 @@ public class User {
 	public void setPassword(String nPass){
 		password = nPass;
 	}
-	public LinkedList<Message> getMessages(){
-		return messages;
+	public void getMessages() {
+		for(int i = 0; i < messages.size(); i++) {
+			System.out.println(messages.get(i));
+		}
 	}
 	public Message getFirstMessage(){
-		return messages.removeFirst();
+		return messages.element();
 	}
 	public LinkedList<Song> getOwnedLibrary(){
-		return ownedLibrary;
+		return ownedLibrary.getSongs();
 	}
 	
 }
