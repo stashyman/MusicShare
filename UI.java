@@ -12,10 +12,20 @@ private String current;
 	}
 	public void SwitchUser() {
 		boolean login = false;
+		boolean checked = false;
 		while(login == false){
 			System.out.println("Please Enter a Username or type exit to quit the program.");
 			Scanner read = new Scanner(System.in);
 			String t = read.next();
+			for(int i = 0; i < UM.Loggedin.size(); i++) {
+				if(UM.Loggedin.get(i).equals(t)) {
+					checked = true;
+				}
+			}
+			if(checked == false) {
+				System.out.println("User not logged in. You cannot switch to a user that has not logged in.");
+				return;
+			}
 			if(t.equals("exit")) {
 				System.out.println("Goodbye.");
 				System.exit(0);
@@ -105,8 +115,8 @@ private String current;
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(current)) {
 										System.out.println("Hello " + current + " this is the list of songs you can play. Type the number of the song you would like to listen to.");
-										for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.size(); j++) {
-											System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.get(j));
+										for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
+											System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
 										}
 									}
 								}
@@ -115,8 +125,8 @@ private String current;
 								int songr = Integer.parseInt(songrequest);
 								System.out.println();
 								for(int i = 0; i < UM.getUsers().size(); i++) {
-									if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
-											System.out.println("You are currently playing the song titled " + UM.getUsers().get(i).ownedLibrary.get(songr-1).getName());
+									if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
+											System.out.println("You are currently playing the song titled " + UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).getName());
 											playable = true;
 									}
 								}
@@ -129,15 +139,6 @@ private String current;
 							case "2": {
 								// play playlist method here. We can list the playlist available to play here
 								System.out.println("Hello " + current + " this is the list of your available playlists. Please select one of the numbers to play.");
-								for(int i = 0; i < UM.getUsers().size(); i++) {
-									if(UM.getUsers().get(i).getUsername().equals(current)) {
-										for(int j = 0; j < UM.getUsers().get(i).playList.size(); j++) {
-											for(int k = 0; k < UM.getUsers().get(i).playList.get(j).size(); k++) {
-												System.out.println(k+1 + ": " + UM.getUsers().get(i).playList.get(j));
-											}
-										}
-									}
-								}
 								break;
 							}
 							case "3":{
@@ -164,27 +165,25 @@ private String current;
 						case "1": {
 							String[] tokens = null;
 							String[] songdata = null;
-							String songdelims = "(|\\,\\])";
+							String songdelims = "[//(//,//)]";
 							System.out.println("Hello " + current + " Please enter the new song you want to add in the following format: (Name, Artist, Album, Year, Composer, Genre)");
 							String songstring = "";
-							songstring += reader.nextLine();
-							tokens = s.split(songdelims);
-							for(int i = 1; i < tokens.length-1; i++) {
-								songdata = tokens[i].split(songdelims);
+							Scanner scan = new Scanner(System.in);
+							scan.useDelimiter("[\n]");
+							songstring = scan.next();
+							songdata = songstring.split(songdelims);
 								for(int j = 0; j < songdata.length; j++) {
-									if(songdata[j].startsWith(" ")) {
+									while(songdata[j].startsWith(" ")) {
 										songdata[j] = songdata[j].substring(1);
 									}
-									if(songdata[j].endsWith(" ")) {
+									while(songdata[j].endsWith(" ")) {
 										songdata[j] = songdata[j].substring(0, songdata[j].length()-1);
 									}
 								}
-							
-						    }
-							Song newsong = new Song(songdata[0],songdata[1],songdata[2],songdata[3],songdata[4],songdata[5]);
+							Song newsong = new Song(songdata[1],songdata[2],songdata[3],songdata[4],songdata[5],songdata[6]);
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
-									UM.getUsers().get(i).ownedLibrary.add(newsong);
+									UM.getUsers().get(i).ownedLibrary.getSongs().add(newsong);
 								}
 							}
 							break;
@@ -194,8 +193,8 @@ private String current;
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
 									System.out.println("Hello " + current + " this is the list of songs you can add to your playlist. Type the number of the song you would like to add to a playlist.");
-									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.size(); j++) {
-										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.get(j));
+									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
+										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
 									}
 								}
 							}
@@ -214,8 +213,8 @@ private String current;
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
 									System.out.println("Hello " + current + " this is the list of songs you can add to your playlist. Type the number of the song you would like to add to a playlist.");
-									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.size(); j++) {
-										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.get(j));
+									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
+										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
 									}
 								}
 							}
@@ -227,8 +226,8 @@ private String current;
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
 									System.out.println("Hello " + current + " this is the list of songs you can edit. Type the number of the song you would like to edit.");
-									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.size(); j++) {
-										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.get(j));
+									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
+										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
 									}
 								}
 							}
@@ -237,7 +236,7 @@ private String current;
 							int songr = Integer.parseInt(songrequest);
 							System.out.println();
 							for(int i = 0; i < UM.getUsers().size(); i++) {
-								if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
+								if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
 										playable = true;
 								}
 							}
@@ -253,8 +252,8 @@ private String current;
 									System.out.println("What will the new song's name be?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
-										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
-											    UM.getUsers().get(i).ownedLibrary.get(songr-1).setName(songchange);
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
+											    UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).setName(songchange);
 												playable = false;
 										}
 									}
@@ -264,8 +263,8 @@ private String current;
 									System.out.println("What will the new song's album be?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
-										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
-											UM.getUsers().get(i).ownedLibrary.get(songr-1).setAlbum(songchange);
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
+											UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).setAlbum(songchange);
 											playable = false;
 										}
 									}
@@ -275,8 +274,8 @@ private String current;
 									System.out.println("Who will be the new song's artist?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
-										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
-											UM.getUsers().get(i).ownedLibrary.get(songr-1).setArtist(songchange);
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
+											UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).setArtist(songchange);
 											playable = false;
 										}
 									}
@@ -286,8 +285,8 @@ private String current;
 									System.out.println("What will be the new song's year?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
-										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
-											    UM.getUsers().get(i).ownedLibrary.get(songr-1).setYear(songchange);
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
+											    UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).setYear(songchange);
 												playable = false;
 										}
 									}
@@ -297,8 +296,8 @@ private String current;
 									System.out.println("Who will be the new song's composer?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
-										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
-											UM.getUsers().get(i).ownedLibrary.get(songr-1).setComposer(songchange);
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
+											UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).setComposer(songchange);
 											playable = false;
 										}
 									}
@@ -308,8 +307,8 @@ private String current;
 									System.out.println("What will be the new song's genre?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
-										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
-											UM.getUsers().get(i).ownedLibrary.get(songr-1).setGenre(songchange);
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
+											UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).setGenre(songchange);
 											playable = false;
 										}
 									}
@@ -387,8 +386,8 @@ private String current;
 							if(sortoption.equals("Artist")) {
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(current)) {
-										for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.size(); j++) {
-											Song sortsong = UM.getUsers().get(i).ownedLibrary.get(j);
+										for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
+											Song sortsong = UM.getUsers().get(i).ownedLibrary.getSongs().get(j);
 										}
 										
 									}
@@ -547,8 +546,8 @@ private String current;
 								System.out.println("Here is a list of the songs your friend has available for playing. Select the number that you want to request to borrow.");
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(songrequest)) {
-										for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.size(); j++) {
-											System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.get(j));
+										for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
+											System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
 										}
 									}
 								}
@@ -557,10 +556,10 @@ private String current;
 								boolean sent = false;
 								System.out.println();
 								for(int i = 0; i < UM.getUsers().size(); i++) {
-									if(UM.getUsers().get(i).getUsername().equals(songrequest) && songr <= UM.getUsers().get(i).ownedLibrary.size()) {
-										for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.size(); j++) {
+									if(UM.getUsers().get(i).getUsername().equals(songrequest) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
+										for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
 											if(sent == false) {
-											SongRequest newrequest = new SongRequest(sender, receiver, "You have a new song request for the song " + UM.getUsers().get(i).ownedLibrary.get(songr-1).getName() + " from " + current);
+											SongRequest newrequest = new SongRequest(sender, receiver, "You have a new song request for the song " + UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).getName() + " from " + current);
 											UM.getUsers().get(i).addMessage(newrequest);
 											sent = true;
 											System.out.println("Your request has been sent.");
