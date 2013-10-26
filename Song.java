@@ -1,19 +1,21 @@
-
 public class Song {
 	//Didn't include owner of Song. Ownership of songs can be accessed through the Library, but can easily add the Owner of the song to this class.
-	private String name;
-	private String artist;
-	private String album;
-	private String year;
-	private String composer;
-	private String genre;
-	public Song(String Name_, String Artist_, String Album_, String year_, String composer_, String genre_) {
+	protected String name;
+	protected String artist;
+	protected String album;
+	protected String year;
+	protected String composer;
+	protected String genre;
+	protected String owner;
+	
+	public Song(String Name_, String Artist_, String Album_, String year_, String composer_, String genre_, String _owner) {
 		name = Name_;
 		artist = Artist_;
 		album = Album_;
 		year = year_;
 		composer = composer_;
 		genre = genre_;
+		owner = _owner;
 	}
 	public Song() {
 		name = null;
@@ -23,6 +25,7 @@ public class Song {
 		composer = null;
 		genre = null;
 	}
+	
 	public String toString() {
 		return "[" + name + "," + artist + "," + album + "," + year + "," + composer + "," + genre + "]";
 	}
@@ -62,4 +65,11 @@ public class Song {
 	public String getArtist() {
 		return artist;
 	}
+	public String getOwner(){
+		return owner;
+	}
+	public void setOwner(String _owner){
+		owner = _owner;
+	}
+	
 }
