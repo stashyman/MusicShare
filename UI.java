@@ -180,7 +180,7 @@ private String current;
 										songdata[j] = songdata[j].substring(0, songdata[j].length()-1);
 									}
 								}
-							Song newsong = new Song(songdata[1],songdata[2],songdata[3],songdata[4],songdata[5],songdata[6]);
+							Song newsong = new Song(songdata[1],songdata[2],songdata[3],songdata[4],songdata[5],songdata[6],current);
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
 									UM.getUsers().get(i).ownedLibrary.getSongs().add(newsong);

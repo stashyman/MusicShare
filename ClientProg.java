@@ -251,7 +251,7 @@ public class ClientProg {
 						songdata[j] = songdata[j].substring(0, songdata[j].length()-1);
 					}
 				}
-				Song newsong = new Song(songdata[0],songdata[1],songdata[2],songdata[3],songdata[4],songdata[5]);
+				Song newsong = new Song(songdata[0],songdata[1],songdata[2],songdata[3],songdata[4],songdata[5],newuser.getUsername());
 				SongList.add(newsong);
 				newuser.ownedLibrary.getSongs().add(newsong);
 				lastindex = i;

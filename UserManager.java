@@ -7,6 +7,8 @@ import java.util.Enumeration;
 public class UserManager{
 	private Hashtable<String, User> Users;
 	private String currentUser;
+	public LinkedList<String> Loggedin = new LinkedList<String>();
+	private String type;
 	
 	/*Constructor*/
 	public UserManager(LinkedList<User> _Users){
@@ -60,7 +62,7 @@ public class UserManager{
 	}
 	
 	public void sendFriendRequest(String receiver, String message){//add a message to the receivers message linkedlist
-		FriendRequest FR = new FriendRequest(Users.get(currentUser), Users.get(receiver), message);
+		FriendRequest FR = new FriendRequest(Users.get(currentUser), Users.get(receiver), message, type);
 		Users.get(receiver).addMessage(FR);
 	}
 	//returns a linked list of all the owned songs
@@ -70,6 +72,10 @@ public class UserManager{
 	
 	public Message getFirstMessage(){//grabs the first element in the list, removes it from the list, and returns the message
 		return Users.get(currentUser).getFirstMessage();	
+	}
+	//Get the current User
+	public String getCurrentUser() {
+		return currentUser;
 	}
 	public boolean setCurrentUser(String _user){
 		User tempUser = Users.get(_user);

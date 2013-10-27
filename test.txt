@@ -1,13 +1,4 @@
-Brendan, bjf [Canes, Rory Mcgann, California, 2013, Rory Mcgann, Rap | Cafe Mex, Brendan Finnegan, Brendans Song, 2013, , Rock | RadioActive, Imagine Dragons, Night Visions, 2013, DragonsComposer, Rock | All That Matters, Justin Bieber, All That MattersAlbum, 2013, StupidComposer, Dumb]()
-
-
-Rory, rmc [Sail, Awolnation, Awolnations album, 2013, Awolnation, Rock | Cafe Mex, Brendan Finnegan, Brendans Song, 2013, , Rock | Blurred Lines, Robin Thicke, Blurred Lines Album, 2013, RobinComposer, R&B](Brendan, Ben, Pat, Jon)
-
-
-Ben, bbb [Bulls on Parade, Rage Agaisnt the Machine,,,,Rock | Summertime Sadness, Lana & Cedric, Lana vs. Cedric, 2013, Rey & Gervais, Pop | Berzerk, Eminem, BerzerkAlbum, 2013, EminemComposer, Rap | We Can't Stop, Miley Cyrus, We Can't Stop Album, 2013, , Pop](Brendan, Rory, Jon, Pat)
-
-
-Pat, pat [Roar, Katy Perry, RoarAlbum, 2013, KatyComposer, Pop | Demons, Imagine Dragons, Night Visions, 2013, NightVisionsComposer, R&B | Let Her Go, Passanger, All the Little Lights, 2013, , Rock](Ben, Rory, Jon, Brendan)
-
-
-Jon, lol [Rap God, Eminem, Rap God Album, 2013, M&MComposer, Rap | Counting Stars, OneRepublic, Native, 2013, OneRepublicComposer, Rock | My Hitta, YG, , 2013, , Rap | Gorilla, Bruno Mars, Unorthodox Jukebox, 2013, BrunoComposer, Pop](Brendan, Rory, Ben, Pat)
+Brendan, bjf [Canes, Rory Mcgann, California, 2013, Rory Mcgann, Rap | Cafe Mex, Brendan Finnegan, Brendans Song, 2013, , Rock]()
+Rory, rmc [Sail, Awolnation, Awolnations album, 2013, Awolnation, Rock | Cafe Mex, Brendan Finnegan, Brendans Song, 2013, , Rock](Brendan)
+Ben, bbb [Bulls on Parade, Rage Agaisnt the Machine,,,,Rock](Brendan)
+Jon, jjj [Bulls on Parade, Rage Agaisnt the Machine,,,,Rock](Brendan)
