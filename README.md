@@ -7,7 +7,7 @@ From now on, whenever you edit any of the files, write here what you changed so 
 Problems to be addressed
 =====================
 
-1: Need to add the borrowed songs attibutes (time, plays). I just added accepting/denying requests. Accepting a request removes a song from a user's playable library and adds it to the requester's playable library.
+1: Need to add the borrowed songs attibutes (time, plays). I just added accepting/denying requests. Accepting a request removes a song from a user's playable library and adds it to the requester's playable library. Working on taking back a song next.
 
 2: playlist (add songs from owned library to playlists, also check if borrowed and don't allow to play if so)
 
