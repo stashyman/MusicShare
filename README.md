@@ -33,3 +33,5 @@ Issues recently fixed
 they will both be added to each other's friends list.
 
 2: Users were showing up on the logged in list more than once.
+
+3: added check in User.java for empty friends list
