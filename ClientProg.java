@@ -259,7 +259,7 @@ public class ClientProg {
 			//Create Friends
 			//Create Friend Data and store into friendata after removing the ( ) and ,
 			//Not sure what to do if trying to add friend that doesnt exist
-			String frienddelims = "[(//)//,]";
+			//String frienddelims = "[(//)//,]";
 			for(int i = lastindex+1; i < tokens.length; i++) {
 				friendata = tokens[i].split(userdelims);
 				for(int j = 0; j < friendata.length; j++) {
@@ -278,8 +278,37 @@ public class ClientProg {
 			LibraryList.add(lib);
 			UserList.add(newuser);//adding user to the list down here so it maintains all the other information read in
 			SongList.clear();
-
+			
 		}
+		
+		// This loops through the user list, get each person friends list, and check if the person they have added, has them added
+		// If they don't then it adds them
+			for(int i=0;i<UserList.size();i++){
+				String curname =UserList.get(i).getUsername();
+				for (int j=0;j<UserList.get(i).getFriends().size();j++){
+					String friend=UserList.get(i).getFriends().get(j);
+					for(int k=0;k<UserList.size();k++){
+						if(UserList.get(k).getUsername().equals(friend)){
+							boolean flag=false;
+							for (int a=0;a<UserList.get(k).getFriends().size();a++){
+								if(UserList.get(k).getFriends().get(a).equals(curname)){
+									flag=true;
+								}
+							}
+							if(flag==false){
+								if (UserList.get(k).getFriends().get(0).equals("")){
+									UserList.get(k).getFriends().remove();
+								}
+								UserList.get(k).addFriends(curname);
+							}
+						}
+					}
+				}
+				
+				
+			}
+
+		
 		UI ui = new UI(UserList);
 		ui.Login();
 //		Song borrowed = new Song();
