@@ -7,7 +7,7 @@ From now on, whenever you edit any of the files, write here what you changed so 
 Problems to be addressed
 =====================
 
-1: Need to add the borrowed songs attibutes (time, plays). I just added accepting/denying requests. Accepting a request removes a song from a user's playable library and adds it to the requester's playable library. Working on taking back a song next.
+1: Need to add the borrowed songs attibutes (time, plays). I just added accepting/denying requests. Accepting a request removes a song from a user's playable library and adds it to the requester's playable library. Working on taking back a song next. Rory - Do you remember what Phillipa said about taking back a song? Can we take back a song from someone that we borrowed it to without them being logged into the system??
 
 2: playlist (add songs from owned library to playlists, also check if borrowed and don't allow to play if so)
 
