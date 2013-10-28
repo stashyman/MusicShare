@@ -1,7 +1,7 @@
 MusicShare
 ==========
 
-Music Share Program
+From now on, whenever you edit any of the files, write here what you changed so we know what still needs to be done.
 
 
 Problems to be addressed
