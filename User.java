@@ -31,9 +31,9 @@ public class User {
 	}
 	//Need to add method if friends list is empty so it does not through a no such element exception
 	public void PrintFriends(User u) {
-//		if(friends.getFirst() == null) {
-//			System.out.println("You do not have any friends on your friends list \n");
-//		}
+		if(u.friends.size()==0) {
+			System.out.println("You do not have any friends on your friends list \n");
+		}
 		for(int i = 0; i < u.friends.size(); i++) {
 			String g = u.friends.get(i);
 			System.out.println(g);
