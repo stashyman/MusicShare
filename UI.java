@@ -76,7 +76,13 @@ private String current;
 						login = true;
 						current = t;
 						UM.setCurrentUser(t);
-						UM.Loggedin.add(t);
+						boolean already=false;
+						for(int i = 0; i < UM.Loggedin.size(); i++) {
+							if(UM.Loggedin.get(i).equals(current)) {
+								already=true;
+							}
+						}
+						if (already==false) UM.Loggedin.add(t);
 						//Don't add multiple users to logged in list when switching users.
 					}
 				}
