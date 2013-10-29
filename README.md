@@ -9,7 +9,7 @@ I got adding playlists working, and I had to update a couple of the files. You s
 Problems to be addressed
 =====================
 
-1: Need to add the borrowed songs attibutes (time, plays). I just added accepting/denying requests. Accepting a request removes a song from a user's playable library and adds it to the requester's playable library. Working on taking back a song next. Rory - Do you remember what Phillipa said about taking back a song? Can we take back a song from someone that we borrowed it to without them being logged into the system??
+1: Need to add the borrowed songs attibutes (time, plays). 
 
 2: playlist (add songs from owned library to playlists, also check if borrowed and don't allow to play if so)
 
@@ -37,3 +37,7 @@ they will both be added to each other's friends list.
 2: Users were showing up on the logged in list more than once.
 
 3: added check in User.java for empty friends list
+
+4. Fixed a few user input errors. 
+
+5. Taking back a song works now. Check if user is logged in and on friends list, and then check if the owner of the song matches the current user. When song is taken back, remove the song from both user's playable library and add it to the owners library.
