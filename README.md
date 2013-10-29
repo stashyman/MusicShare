@@ -23,7 +23,6 @@ Problems to be addressed
 
 8: being able to change the borrow length, and be either time in minutes or num plays (in profile seetings)
 
-9: Library searching (we have by single friend working, but need to impliment by all friends and by public)
 
 
 Issues recently fixed
@@ -39,3 +38,5 @@ they will both be added to each other's friends list.
 4. Fixed a few user input errors. 
 
 5. Taking back a song works now. Check if user is logged in and on friends list, and then check if the owner of the song matches the current user. When song is taken back, remove the song from both user's playable library and add it to the owners library.
+
+6. Library searching now works for friends (nonfriends) and public.
