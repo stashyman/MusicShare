@@ -9,6 +9,7 @@ public class User {
 	public Library ownedLibrary = new Library();
 	public Library playableLibrary = new Library();
 	private LinkedList<String> friends = new LinkedList<String>();
+	private LinkedList<Playlist> playlist = new LinkedList<Playlist>();
 	
 	public User(String username_, String password_, String friends_){
 		username = username_;
@@ -46,11 +47,17 @@ public class User {
 	public void addFriends(String s) {
 		friends.add(s);
 	}
+	public void addPlaylist(Playlist s) {
+		playlist.add(s);
+	}
 	public void addMessage(Message m){
 		messages.add(m);
 	}
 	public String getUsername() {
 		return username;
+	}
+	public LinkedList<Playlist> getPlaylist() {
+		return playlist;
 	}
 	public String getPassword() {
 		return password;
