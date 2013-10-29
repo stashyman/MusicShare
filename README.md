@@ -21,6 +21,8 @@ Problems to be addressed
 
 6: being able to change the borrow length, and be either time in minutes or num plays (in profile seetings)
 
+7. Setting a queue for a borrowed song.
+
 
 
 Issues recently fixed
