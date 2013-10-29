@@ -40,3 +40,5 @@ they will both be added to each other's friends list.
 5. Taking back a song works now. Check if user is logged in and on friends list, and then check if the owner of the song matches the current user. When song is taken back, remove the song from both user's playable library and add it to the owners library.
 
 6. Library searching now works for friends (nonfriends) and public.
+
+7. Functionaliry for setting 5 has been moved to 3.
