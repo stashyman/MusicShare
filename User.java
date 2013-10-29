@@ -9,13 +9,13 @@ public class User {
 	public Library ownedLibrary = new Library();
 	public Library playableLibrary = new Library();
 	private LinkedList<String> friends = new LinkedList<String>();
-	private LinkedList<Playlist> playlist = new LinkedList<Playlist>();
-	
-	public User(String username_, String password_, String friends_){
+	public String visible;
+	public User(String username_, String password_, String friends_, String visible_){
 		username = username_;
 		password = password_;
 		friends = new LinkedList<String>();
 		friends.add(friends_);
+		visible = visible_;
 	}
 	public User(String username_, String password_){
 		username = username_;
@@ -32,9 +32,9 @@ public class User {
 	}
 	//Need to add method if friends list is empty so it does not through a no such element exception
 	public void PrintFriends(User u) {
-		if(u.friends.size()==0) {
-			System.out.println("You do not have any friends on your friends list \n");
-		}
+//		if(friends.getFirst() == null) {
+//			System.out.println("You do not have any friends on your friends list \n");
+//		}
 		for(int i = 0; i < u.friends.size(); i++) {
 			String g = u.friends.get(i);
 			System.out.println(g);
@@ -47,17 +47,11 @@ public class User {
 	public void addFriends(String s) {
 		friends.add(s);
 	}
-	public void addPlaylist(Playlist s) {
-		playlist.add(s);
-	}
 	public void addMessage(Message m){
 		messages.add(m);
 	}
 	public String getUsername() {
 		return username;
-	}
-	public LinkedList<Playlist> getPlaylist() {
-		return playlist;
 	}
 	public String getPassword() {
 		return password;
@@ -67,6 +61,12 @@ public class User {
 	}
 	public void setUserName(String n) {
 		this.username = n;
+	}
+	public void setVisibility(String y) {
+		visible = y;
+	}
+	public String getVisibility() {
+		return visible;
 	}
 	public LinkedList<String> getFriends() {
 		return friends;
