@@ -17,9 +17,7 @@ Problems to be addressed
 
 4: We need to move the functionality of borrowing a song from option 5 (send message) to option 3 (borrow a song)
 
-5: need to impliment taking back a song that has been lent
-
-6: library sorting (actually sorting the songs) (Ben is in the process of geting this to work)
+5.: library sorting (actually sorting the songs) (Ben is in the process of geting this to work)
 
 7: song visability (profile option to allow songs to be friends only or public browsing)
 
