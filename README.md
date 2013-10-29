@@ -42,3 +42,5 @@ they will both be added to each other's friends list.
 7. Functionaliry for setting 5 has been moved to 3.
 
 8. Finished Library visibility. Users now have option to set whether or not the public can view their library.
+
+9. Added Logout function.
