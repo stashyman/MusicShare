@@ -191,7 +191,7 @@ private String current;
                                                                                 songdata[j] = songdata[j].substring(0, songdata[j].length()-1);
                                                                         }
                                                                 }
-                                                        Song newsong = new Song(songdata[1],songdata[2],songdata[3],songdata[4],songdata[5],songdata[6],current);
+                                                        OwnedSong newsong = new OwnedSong(songdata[1],songdata[2],songdata[3],songdata[4],songdata[5],songdata[6],current);
                                                         for(int i = 0; i < UM.getUsers().size(); i++) {
                                                                 if(UM.getUsers().get(i).getUsername().equals(current)) {
                                                                         UM.getUsers().get(i).ownedLibrary.getSongs().add(newsong);
@@ -200,34 +200,57 @@ private String current;
                                                         break;
                                                 }
                                                 case "2": {
-                                                        //Need to create multiple playlists.
-                                                        for(int i = 0; i < UM.getUsers().size(); i++) {
-                                                                if(UM.getUsers().get(i).getUsername().equals(current)) {
-                                                                        System.out.println("Hello " + current + " this is the list of songs you can add to your playlist. Type the number of the song you would like to add to a
- playlist.");
-                                                                        for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
-                                                                                System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
-                                                                        }
-                                                                }
-                                                        }
-                                                        boolean playable = false;
-                                                        String songrequest = reader.next();
-                                                        int songr = Integer.parseInt(songrequest);
-                                                        if(playable == false) {
-                                                                System.out.println("You do not have the option to play that song. Please enter a valid option from above.");
-                                                        }
-                                                        playable = false;
-
-                                                        //create playlist
-                                                        break;
-                                                }
+                        							//Need to create multiple playlists.
+                                                	int usernum=0;
+                        							for(int i = 0; i < UM.getUsers().size(); i++) {
+                        								if(UM.getUsers().get(i).getUsername().equals(current)) {
+                        									usernum=i;
+                        									System.out.println("Hello " + current + " this is the list of songs you can add to your playlist. Type the number of the song you would like to add to a playlist.");
+                        									System.out.println("You can also type multiple numbers followed by a space to add multiple songs. ex.\"1 3 5\" would add songs 1, 3, and 5");
+                        									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
+                        										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
+                        									}
+                        								}
+                        							}
+                        							boolean playable = false;
+                        							Scanner lineScan = new Scanner(System.in);
+                        							lineScan.useDelimiter("[\n]");
+                        							String songrequest = lineScan.next();
+                        							String tempdelims = "[\\W]+";
+                        							String[] temptoken = null;
+                        							temptoken = songrequest.split(tempdelims);
+                        							LinkedList<OwnedSong> playlist = new LinkedList<OwnedSong>();
+//                        							for(int i=0;i<temptoken.length;i++){
+//                        								System.out.println( "tokens "+i + " "+temptoken[i]);
+//                        							}
+                        							for(int i=0;i<temptoken.length;i++){
+                        								try{
+                        								int temp=Integer.parseInt(temptoken[i]);
+                        								int size=UM.getUsers().get(usernum).getOwnedLibrary().size();
+                        								if(temp<size+1&&temp>0){
+                        									playlist.add((OwnedSong) UM.getUsers().get(usernum).getOwnedLibrary().get(temp-1));
+                        								}
+                        									
+                        								
+                        								}
+                        								catch (NumberFormatException e)
+                        								{			
+                        									e.printStackTrace();
+                        									System.out.println("you entered " + temptoken[i] + " but this was not a number");
+                        								}
+                        								}
+                        							UM.getUsers().get(usernum).addPlaylist(new Playlist(playlist));
+                        							System.out.println(UM.getUsers().get(usernum).getPlaylist().get(0));
+                        							
+                        							//create playlist
+                        							break;
+                        						}
                                                 case "3": {
                                                         for(int i = 0; i < UM.getUsers().size(); i++) {
                                                                 if(UM.getUsers().get(i).getUsername().equals(current)) {
-                                                                        System.out.println("Hello " + current + " this is the list of songs you can add to your playlist. Type the number of the song you would like to add to a
- playlist.");
-                                                                        for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
-                                                                                System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
+                                                                        System.out.println("Hello " + current + " here is the list of playlists that you have.");
+                                                                        for(int j = 0; j < UM.getUsers().get(i).getPlaylist().size(); j++) {
+                                                                                System.out.println(j+1 + ": " + UM.getUsers().get(i).getPlaylist().get(j));
                                                                         }
                                                                 }
                                                         }
@@ -426,8 +449,7 @@ private String current;
                                 b = reader.next();
                                 switch (b) {
                                                 case "1": {
-                                                        System.out.println("Hello " + current + " how would you like to sort your Library? You can sory by Artist, Song Name, Song Year, Song Album, Or the Genre. Please Enter 
-one of the options to sort the song by.");
+                                                        System.out.println("Hello " + current + " how would you like to sort your Library? You can sory by Artist, Song Name, Song Year, Song Album, Or the Genre. Please Enter one of the options to sort the song by.");
                                                         boolean sorted = false;
                                                         String sortoption = reader.next();
                                                         if(sortoption.equals("Artist")) {
@@ -514,7 +536,7 @@ one of the options to sort the song by.");
                                                                                         for(int ix = 0; ix < UM.getUsers().get(i).playableLibrary.getSongs().size(); ix++) {
                                                                                                 if(UM.getUsers().get(i).playableLibrary.getSongs().get(ix).name.equals(songname)) {
                                                                                                         so = UM.getUsers().get(i).playableLibrary.getSongs().get(ix);
-                                                                                                        UM.getUsers().get(i).playableLibrary.getSongs().remove(ix)
+                                                                                                        UM.getUsers().get(i).playableLibrary.getSongs().remove(ix);
                                                                                                         System.out.println("Your song " + songname + " is no longer playable for you.");
 
                                                                                }
