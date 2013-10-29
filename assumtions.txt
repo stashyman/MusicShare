@@ -1,0 +1,8 @@
+Assumptions:
+
+We assume that a username will not be read in on the file twice.
+We assume that all friend relationships being read in on the file are mutual.
+We assume that songs can be duplicated.
+We assume that all of a user's messages (song requests, friend requests) will remain active until the program is killed.
+We assume that you cannot interact with any user than has not logged in.
+We assume that the user will read in a number when the UI prompts for a number. (It doesn't necessarily have to be a correct number though)
