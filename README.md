@@ -17,9 +17,7 @@ Problems to be addressed
 
 4.: library sorting (actually sorting the songs) (Ben is in the process of geting this to work)
 
-5: song visability (profile option to allow songs to be friends only or public browsing)
-
-6: being able to change the borrow length, and be either time in minutes or num plays (in profile seetings)
+5.: being able to change the borrow length, and be either time in minutes or num plays (in profile seetings)
 
 7. Setting a queue for a borrowed song.
 
@@ -42,3 +40,5 @@ they will both be added to each other's friends list.
 6. Library searching now works for friends (nonfriends) and public.
 
 7. Functionaliry for setting 5 has been moved to 3.
+
+8. Finished Library visibility. Users now have option to set whether or not the public can view their library.
