@@ -48,7 +48,7 @@ public class Playlist {
 	public String toString(){
 		String a="";
 		for (int i=0;i<playlist.size();i++){
-			a+=i + ""+playlist.get(i) +'\n';
+			a+="Song "+(i+1) + ": "+playlist.get(i) +'\n';
 			
 		}
 		return a;
