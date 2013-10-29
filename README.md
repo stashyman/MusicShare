@@ -1,3 +1,27 @@
+ADDING CODE TO THE UI
+=====================
+PLEASE ADD THE CODE TO THE UI2.java, because that is the one that I have done a lot of cleanup to and am testing.
+
+Errors that have been found so far
+==================================
+#. equals the main menu option and #) is the sub menu option
+
+2. 1) Add a song gives an out of bounds error when adding the song with any combination
+
+3. 1) When requesting a song from self it displays that you can not request from self but then still shows songs and asks what song you wish to borrow.
+	    - is that what we want it to do?
+   
+   2) When taking back a song from a friend and they are not logged in, it still shows friends songs.
+	    - do we want that?
+  
+   2) When taking back a song and invalid input is given it dumps out to menu and does not allow for another song choice/
+
+4. 2) When input invalid information then it kicks back to menu and does not ask until get either a yes or no.
+
+6. 3) When selecting search all non friends it does not show me my non friends songs
+
+if need to contact me (Jon) just text or contact me on skype
+
 MusicShare
 ==========
 
