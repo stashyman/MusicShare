@@ -4,7 +4,7 @@ PLEASE ADD THE CODE TO THE UI2.java, because that is the one that I have done a 
 
 Errors that have been found so far
 ==================================
-#. equals the main menu option and #) is the sub menu option
+first number equals the main menu option and #) is the sub menu option
 
 2. 1) Add a song gives an out of bounds error when adding the song with any combination
 
