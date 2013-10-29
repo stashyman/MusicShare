@@ -15,13 +15,11 @@ Problems to be addressed
 
 3: library sorting setting (changing profile setting) (Ben is in the process of geting this to work)
 
-4: We need to move the functionality of borrowing a song from option 5 (send message) to option 3 (borrow a song)
+4.: library sorting (actually sorting the songs) (Ben is in the process of geting this to work)
 
-5.: library sorting (actually sorting the songs) (Ben is in the process of geting this to work)
+5: song visability (profile option to allow songs to be friends only or public browsing)
 
-7: song visability (profile option to allow songs to be friends only or public browsing)
-
-8: being able to change the borrow length, and be either time in minutes or num plays (in profile seetings)
+6: being able to change the borrow length, and be either time in minutes or num plays (in profile seetings)
 
 
 
