@@ -235,6 +235,8 @@ public class ClientProg {
 				}
 				newuser = new User(userdata[0],userdata[1]);
 				newuser.setVisibility("e");
+				newuser.setBorrowtime(-1);
+				newuser.setPlayamount(3);
 
 			}
 			//Create Songs
@@ -251,7 +253,7 @@ public class ClientProg {
 						songdata[j] = songdata[j].substring(0, songdata[j].length()-1);
 					}
 				}
-				Song newsong = new Song(songdata[0],songdata[1],songdata[2],songdata[3],songdata[4],songdata[5],newuser.getUsername());
+				OwnedSong newsong = new OwnedSong(songdata[0],songdata[1],songdata[2],songdata[3],songdata[4],songdata[5],newuser.getUsername());
 				SongList.add(newsong);
 				newuser.ownedLibrary.getSongs().add(newsong);
 				newuser.playableLibrary.getSongs().add(newsong);
