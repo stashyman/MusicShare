@@ -10,7 +10,7 @@ Errors that have been found so far
 ==================================
 first number equals the main menu option and #) is the sub menu option
 
-(2) (1) Add a song gives an out of bounds error when adding the song with any combination
+(2) (1) Add a song gives an out of bounds error when adding the song with any combination-Fixed
 
 (3) (1) When requesting a song from self it displays that you can not request from self but then still shows songs and asks what song you wish to borrow.
 	    Did not want - Fixed
