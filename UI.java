@@ -779,17 +779,13 @@ private String current;
 				switch (b) {
 						case "1": {
 							System.out.println("Hello " + current + " how would you like to sort your Library?\nYou can sort by Artist, Song Name, Song Year, Song Album, Or the Genre.\nPlease Enter one of the options to sort the song by.");
-							boolean sorted = false;
-							String sortoption = reader.next();
-							if(sortoption.equals("Artist")) {
-								for(int i = 0; i < UM.getUsers().size(); i++) {
-									if(UM.getUsers().get(i).getUsername().equals(current)) {
-										for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
-											Song sortsong = UM.getUsers().get(i).ownedLibrary.getSongs().get(j);
-										}
-										
-									}
-								}
+							String so = reader.next();
+							so = so.toLowerCase();
+							Sort _sort;
+							if(so.equalsIgnoreCase("artist") || so.equalsIgnoreCase("year") || so.equalsIgnoreCase("composer") || so.equalsIgnoreCase("name") || so.equalsIgnoreCase("album")){
+								_sort = Sort.valueOf(so);
+								UM.getOwnedLib().setSortBy(_sort);
+								UM.getOwnedLib().sortLib();
 							}
 							//sorting options
 							break;
