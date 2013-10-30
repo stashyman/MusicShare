@@ -22,7 +22,7 @@ first number equals the main menu option and #) is the sub menu option
 
 4. 2) When input invalid information then it kicks back to menu and does not ask until get either a yes or no.
 
-6. 3) When selecting search all non friends it does not show me my non friends songs
+6. 3) When selecting search all non friends it does not show me my non friends songs == fixed Rory==
 
 if need to contact me (Jon) just text or contact me on skype
 
