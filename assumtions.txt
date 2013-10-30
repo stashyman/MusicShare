@@ -13,5 +13,5 @@ A. Duplicate usernames will be removed but duplicate songs are allowed.
 Q. What will happen when a user has not responded to friend and song requests but has logged out of the system?
 A. All requests will remain until the user answers them or the program is killed.
 Q. How will the system deal with interacting with users that are not logged in?
-A. Both users must be logged into the system to deal with each other. 
+A. Both users must be logged into the system to deal with each other. However, a User can take back a song that was lent out at any time.
 
