@@ -2,6 +2,10 @@ ADDING CODE TO THE UI
 =====================
 PLEASE ADD THE CODE TO THE UI2.java, because that is the one that I have done a lot of cleanup to and am testing.
 
+I don't see the point of UI2. I took the updated code in UI2 and added upon it, then put it in UI. The borrowed song atributes are added
+and I have the default settings working also, but we never send a song back after it has been done yet.
+PLEASE REMEMBER TO DOWNLOAD THE MOST RECENT CODE WHEN YOU WANT TO WORK. I'm looking at you Brendan. --Rory
+
 Errors that have been found so far
 ==================================
 first number equals the main menu option and #) is the sub menu option
@@ -33,15 +37,11 @@ I got adding playlists working, and I had to update a couple of the files. You s
 Problems to be addressed
 =====================
 
-1: Need to add the borrowed songs attibutes (time, plays). 
-
-2: playlist (add songs from owned library to playlists, also check if borrowed and don't allow to play if so)
+1: Need to implement the borrowed songs attibutes (time, plays). 
 
 3: library sorting setting (changing profile setting) (Ben is in the process of geting this to work)
 
 4.: library sorting (actually sorting the songs) (Ben is in the process of geting this to work)
-
-5.: being able to change the borrow length, and be either time in minutes or num plays (in profile seetings)
 
 7. Setting a queue for a borrowed song.
 
@@ -68,3 +68,7 @@ they will both be added to each other's friends list.
 8. Finished Library visibility. Users now have option to set whether or not the public can view their library.
 
 9. Added Logout function.
+
+10. playlist 
+ 
+11. being able to change the borrow length, and be either time in minutes or num plays (in profile seetings)
