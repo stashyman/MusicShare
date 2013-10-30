@@ -31,9 +31,6 @@ Problems to be addressed
 
 1: Need to implement the borrowed songs attibutes (time, plays). 
 
-3: library sorting setting (changing profile setting) (Ben is in the process of geting this to work)
-
-4.: library sorting (actually sorting the songs) (Ben is in the process of geting this to work)
 
 7. Setting a queue for a borrowed song.
 
@@ -64,3 +61,7 @@ they will both be added to each other's friends list.
 10. playlist 
  
 11. being able to change the borrow length, and be either time in minutes or num plays (in profile seetings)
+
+12. library sorting setting (changing profile setting)
+
+13. library sorting (actually sorting the songs)
