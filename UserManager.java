@@ -77,6 +77,9 @@ public class UserManager{
 	public String getCurrentUser() {
 		return currentUser;
 	}
+	public Library getOwnedLib(){
+		return Users.get(currentUser).getOwnedLib();
+	}
 	public boolean setCurrentUser(String _user){
 		User tempUser = Users.get(_user);
 		if(tempUser == null){
