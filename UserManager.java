@@ -83,6 +83,9 @@ public class UserManager{
 	public Library getPlayableLib(){
 		return Users.get(currentUser).getPlayableLib();
 	}
+	public User getUserCurrentUser(){
+		return Users.get(currentUser);
+	}
 	public boolean setCurrentUser(String _user){
 		User tempUser = Users.get(_user);
 		if(tempUser == null){
