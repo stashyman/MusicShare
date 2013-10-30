@@ -20,11 +20,19 @@ public class Playlist {
 		playlist.add(a);
 		
 	}
+	public Song getsong(int index){
+		return playlist.get(index);
+		
+	}
+	public int getsize(){
+		return playlist.size();
+		
+	}
 	public void removesong(Song a){
 		for(int i=0;i<playlist.size();i++){
 			if(playlist.get(i).equals(a)){
 				playlist.remove(i);
-				System.out.println("Song :"+ a + " was removed.");
+				//System.out.println("Song :"+ a + " was removed.");
 				return;
 			}
 		}
