@@ -26,13 +26,6 @@ first number equals the main menu option and #) is the sub menu option
 
 if need to contact me (Jon) just text or contact me on skype
 
-MusicShare
-==========
-
-From now on, whenever you edit any of the files, write here what you changed so we know what still needs to be done.
-
-I got adding playlists working, and I had to update a couple of the files. You should be able to play playlist also, although the menu doesn't reflect this yet.
-
 
 Problems to be addressed
 =====================
