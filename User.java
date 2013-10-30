@@ -10,6 +10,9 @@ public class User {
 	public Library playableLibrary = new Library();
 	private LinkedList<String> friends = new LinkedList<String>();
 	public String visible;
+	private LinkedList<Playlist> playlist = new LinkedList<Playlist>();
+	private int borrowtime;
+	private int playamount;
 	public User(String username_, String password_, String friends_, String visible_){
 		username = username_;
 		password = password_;
@@ -56,6 +59,9 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	public void addPlaylist(Playlist s) {
+		playlist.add(s);
+	}
 	public void addBorrowedSongs(Song s) {
 		playableLibrary.getSongs().add(s);
 	}
@@ -82,6 +88,21 @@ public class User {
 	}
 	public LinkedList<Song> getOwnedLibrary(){
 		return ownedLibrary.getSongs();
+	}
+	public LinkedList<Playlist> getPlaylist() {
+		return playlist;
+	}
+	public int getPlayamount() {
+		return playamount;
+	}
+	public void setPlayamount(int playamount) {
+		this.playamount = playamount;
+	}
+	public int getBorrowtime() {
+		return borrowtime;
+	}
+	public void setBorrowtime(int borrowtime) {
+		this.borrowtime = borrowtime;
 	}
 	
 }
