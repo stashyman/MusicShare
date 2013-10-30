@@ -20,7 +20,7 @@ first number equals the main menu option and #) is the sub menu option
   
 (3) (2) When taking back a song and invalid input is given it dumps out to menu and does not allow for another song choice/
 
-(4) (2) When input invalid information then it kicks back to menu and does not ask until get either a yes or no.
+(4) (2) When input invalid information then it kicks back to menu and does not ask until get either a yes or no. (This seems fine to me. -Ben)
 
 (6) (3) When selecting search all non friends it does not show me my non friends songs == fixed Rory==
 
