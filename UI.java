@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 
-public class UI2 {
+public class UI {
 private UserManager UM;
 private String current;
 	public UI(LinkedList<User> Users){
@@ -1117,6 +1117,7 @@ private String current;
 							//check if the user is on UserList but not friends list.
 							boolean friends = false;
 							for(int i = 0; i < UM.getUsers().size(); i++) {
+								friends = false;
 								String userl = UM.getUsers().get(i).getUsername();
 								for(int ix = 0; ix < currentuser.getFriends().size(); ix++) {
 									String friend = currentuser.getFriends().get(ix);
