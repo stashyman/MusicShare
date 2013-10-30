@@ -95,6 +95,9 @@ public class User {
 	public int getPlayamount() {
 		return playamount;
 	}
+	public Library getOwnedLib(){
+		return ownedLibrary;
+	}
 	public void setPlayamount(int playamount) {
 		this.playamount = playamount;
 	}
