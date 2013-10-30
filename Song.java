@@ -25,6 +25,15 @@ public class Song {
 		composer = null;
 		genre = null;
 	}
+	public Song(Song _song){
+		name = _song.getName();
+		artist = _song.getArtist();
+		album = _song.getAlbum();
+		year = _song.getYear();
+		composer = _song.getComposer();
+		genre = _song.getGenre();
+		owner = _song.getOwner();
+	}
 	
 	public String toString() {
 		return "[" + name + "," + artist + "," + album + "," + year + "," + composer + "," + genre + "]";
