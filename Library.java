@@ -45,7 +45,6 @@ public class Library {
 					switch(sortedBy){
 					case title:{
 						if(libIt.next().getName().compareTo(tempIt.next().getName()) <= 0){
-							System.out.println("Title");
 							libIt.previous();
 							tempIt.previous();
 							temp.add(tempIt.nextIndex(), libIt.next());	
@@ -59,7 +58,6 @@ public class Library {
 					
 					case artist:{
 						if(libIt.next().getArtist().compareTo(tempIt.next().getArtist()) <= 0){
-							System.out.println("Artist");
 							libIt.previous();
 							tempIt.previous();
 							temp.add(tempIt.nextIndex(), libIt.next());	
@@ -73,7 +71,6 @@ public class Library {
 					
 					case genre:{
 						if(libIt.next().getGenre().compareTo(tempIt.next().getGenre()) <= 0){
-							System.out.println("Genre");
 							libIt.previous();
 							tempIt.previous();
 							temp.add(tempIt.nextIndex(), libIt.next());	
