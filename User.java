@@ -95,6 +95,9 @@ public class User {
 	public int getPlayamount() {
 		return playamount;
 	}
+	public Library getPlayableLib(){
+		return playableLibrary;
+	}
 	public Library getOwnedLib(){
 		return ownedLibrary;
 	}
