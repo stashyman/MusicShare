@@ -785,6 +785,8 @@ private String current;
 							if(so.equalsIgnoreCase("artist") || so.equalsIgnoreCase("year") || so.equalsIgnoreCase("composer") || so.equalsIgnoreCase("name") || so.equalsIgnoreCase("album")){
 								_sort = Sort.valueOf(so);
 								UM.getOwnedLib().setSortBy(_sort);
+								UM.getPlayableLib().setSortBy(_sort);
+								UM.getPlayableLib().sortLib();
 								UM.getOwnedLib().sortLib();
 							}
 							else{
