@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 
-public class UI {
+public class UI2 {
 private UserManager UM;
 private String current;
 	public UI(LinkedList<User> Users){
@@ -54,7 +54,7 @@ private String current;
 				User temp = (User)it1.next();
 				if(temp.getUsername().equals(t)) {
 					if(temp.getPassword().equals(q)) {
-						System.out.println("Login Successful \n");
+						System.out.println("Login Successful! \n\n");
 						login = true;
 						current = t;	
 					}
@@ -88,7 +88,7 @@ private String current;
 				User temp = (User)it1.next();
 				if(temp.getUsername().equals(t)) {
 					if(temp.getPassword().equals(q)) {
-						System.out.println("Login Successful \n");
+						System.out.println("Login Successful! \n\n");
 						login = true;
 						current = t;
 						UM.setCurrentUser(t);
@@ -112,13 +112,13 @@ private String current;
 		}
 	}
 	public void runOutput(){
-		System.out.println("Hello " + current + ". Please enter one of the options below.\n");
+		System.out.println("Hello " + current + ". Please enter one of the options below: \n");
 		String a = "";
 		while (true) {
 			System.out
-			.println("\n1. Listen to song/playlist\n\n2. add playlist/song or edit song/playlist\n\n3. borrow/take back song\n\n"
-					+ "4. Profile settings\n\n5. check messages or send a friend requests\n\n"
-					+ "6. browse for songs\n\n7. log out/switch user\n\n8. Admin/Testing\n\nEnter one of the numbers above.\n");
+			.println("1. Listen to song or playlist\n\n2. Add/Edit playlist or song\n\n3. Borrow or take back a song\n\n"
+					+ "4. Profile settings\n\n5. Check messages or Send a friend request(s)\n\n"
+					+ "6. Browse song(s)\n\n7. Log out or Switch User\n\n8. Admin/Testing\n\nEnter one of the numbers above: \n");
 			Scanner reader = new Scanner(System.in);
 			String s;
 			s = reader.next();
@@ -127,18 +127,20 @@ private String current;
 
 				String b = "";
 				while (b.equals("3") == false) {
+					System.out.println("What would you like to do?");
 					System.out
-					.println("\n1. play song\n\n2. play playlist\n\n3. go back\n\nEnter one of the numbers above.\n");
+					.println("\n1. Play a song\n\n2. Play a playlist\n\n3. Go back\n\nEnter one of the numbers above.\n");
 					b = reader.next();
 					switch (b) {
 					//Need to check if borrowed and decrease playcount if it is.
 							case "1": {
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(current)) {
-										System.out.println("Hello " + current + " this is the list of songs you can play. Type the number of the song you would like to listen to.");
+										System.out.println("Hello " + current + ", here is the list of songs you can play.\n");
 										for(int j = 0; j < UM.getUsers().get(i).playableLibrary.getSongs().size(); j++) {
 											System.out.println(j+1 + ": " + UM.getUsers().get(i).playableLibrary.getSongs().get(j));
 										}
+										System.out.println("\nType the number of the song you would like to listen to: ");
 									}
 								}
 								boolean playable = false;
@@ -146,7 +148,7 @@ private String current;
 								int songr = Integer.parseInt(songrequest);
 								boolean input = true;
 								if(songr < 1) {
-									System.out.println("Invald input. Please enter a correct number.");
+									System.out.println("Invald input. Please enter a correct number: \n");
 									playable = false;
 									break;
 								}
@@ -161,26 +163,66 @@ private String current;
 								System.out.println();
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).playableLibrary.getSongs().size()) {
-											System.out.println("You are currently playing the song titled " + UM.getUsers().get(i).playableLibrary.getSongs().get(songr-1).getName());
+											System.out.println("You are currently playing the song titled: " + UM.getUsers().get(i).playableLibrary.getSongs().get(songr-1).getName() + "\n");
 											playable = true;
 									}
 								}
 								if(playable == false) {
-									System.out.println("Invalid input. Please enter a valid input.");
+									System.out.println("Invalid input. Please enter a valid input: \n");
 								}
 								playable = false;
 								break;
 							}
 							case "2": {
 								// play playlist method here. We can list the playlist available to play here
-								System.out.println("Hello " + current + " this is the list of your available playlists. Please select one of the numbers to play.");
+								int usernum=0;
+								System.out.println("Hello " + current + " here is the list of your available playlists.\n");
+								for(int i = 0; i < UM.getUsers().size(); i++) {
+									if(UM.getUsers().get(i).getUsername().equals(current)){
+										usernum=i;
+										if(UM.getUsers().get(i).getPlaylist().size()==0){
+                                   		 System.out.println("You don't have any playlists");
+                                   		 break;
+                                   	 }
+										 for(int j = 0; j < UM.getUsers().get(i).getPlaylist().size(); j++) {
+                                             System.out.println("playlist "+(j+1) + ":\n" + UM.getUsers().get(i).getPlaylist().get(j));
+                                     }
+	                                     System.out.println("Please type the number of the playlist you would like to edit or \"exit\" to exit");
+	                                     Scanner lineScan = new Scanner(System.in);
+	                                     String as=lineScan.next();
+	                                     int temp=0;
+	                                     if(as.equals("exit")){
+	                                    	 break;
+	                                     }
+	                                     try{
+	                                    	temp=Integer.parseInt(as);
+	          								int size=UM.getUsers().get(usernum).getPlaylist().size();
+	          								if(temp>size+1||temp<0){
+	          									System.out.println(as+" was not a vaild number.");
+	          									break;
+	          								}
+	          									
+	          								
+	          								}
+	          								catch (NumberFormatException e)
+	          								{			
+	          									//e.printStackTrace();
+	          									System.out.println(as+" was not a vaild number.");
+	          									break;
+	          								}
+	                                     UM.getUsers().get(i).getPlaylist().get(temp-1).play();
+	                                     System.out.println();
+									}
+								}
+								//code
+								System.out.println("Please select a playlist number to listen to: \n");
 								break;
 							}
 							case "3":{
 								break;
 							}
 							default: {
-								System.out.println("Invalid input. Please enter one of the numerical values above.");
+								System.out.println("Invalid input. Please enter one of the numerical values above.\n");
 								break;
 							}
 						}
@@ -192,16 +234,18 @@ private String current;
 				String b = "";
 			
 			while (b.equals("5") == false) {
+				System.out.println("What would you like to do?");
 				System.out
-				.println("\n1. add song\n\n2. create playlist\n\n3. edit playlist\n\n4. edit song metadata\n\n"
-						+ "5. go back\n\nEnter one of the numbers above.\n");
+				.println("\n1. Add a song\n\n2. Create a playlist\n\n3. Edit a playlist\n\n4. Edit a song's metadata\n\n"
+						+ "5. Go back\n\nEnter one of the numbers above: \n");
 				b = reader.next();
 				switch (b) {
 						case "1": {
 							String[] tokens = null;
 							String[] songdata = null;
 							String songdelims = "[//(//,//)]";
-							System.out.println("Hello " + current + " Please enter the new song you want to add in the following format: (Name, Artist, Album, Year, Composer, Genre)");
+							System.out.println("Hello " + current + " Please enter the new song you want to add in the following format:");
+							System.out.println("(Name, Artist, Album, Year, Composer, Genre)\n");
 							String songstring = "";
 							Scanner scan = new Scanner(System.in);
 							scan.useDelimiter("[\n]");
@@ -215,7 +259,7 @@ private String current;
 										songdata[j] = songdata[j].substring(0, songdata[j].length()-1);
 									}
 								}
-							Song newsong = new Song(songdata[1],songdata[2],songdata[3],songdata[4],songdata[5],songdata[6],current);
+							OwnedSong newsong = new OwnedSong(songdata[1],songdata[2],songdata[3],songdata[4],songdata[5],songdata[6],current);
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
 									UM.getUsers().get(i).ownedLibrary.getSongs().add(newsong);
@@ -223,46 +267,155 @@ private String current;
 							}
 							break;
 						}
-						case "2": {
-							//Need to create multiple playlists.
-							for(int i = 0; i < UM.getUsers().size(); i++) {
-								if(UM.getUsers().get(i).getUsername().equals(current)) {
-									System.out.println("Hello " + current + " this is the list of songs you can add to your playlist. Type the number of the song you would like to add to a playlist.");
-									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
-										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
-									}
-								}
-							}
-							boolean playable = false;
-							String songrequest = reader.next();
-							int songr = Integer.parseInt(songrequest);
-							if(playable == false) {
-								System.out.println("You do not have the option to play that song. Please enter a valid option from above.");
-							}
-							playable = false;
-							
-							//create playlist
-							break;
-						}
-						case "3": {
-							for(int i = 0; i < UM.getUsers().size(); i++) {
-								if(UM.getUsers().get(i).getUsername().equals(current)) {
-									System.out.println("Hello " + current + " this is the list of songs you can add to your playlist. Type the number of the song you would like to add to a playlist.");
-									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
-										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
-									}
-								}
-							}
-							////edit playlist
-							break;
-						}
+						 case "2": {
+ 							//Need to create multiple playlists.
+                         	int usernum=0;
+ 							for(int i = 0; i < UM.getUsers().size(); i++) {
+ 								if(UM.getUsers().get(i).getUsername().equals(current)) {
+ 									usernum=i;
+ 									System.out.println("Hello " + current + " this is the list of songs you can add to your playlist. Type the number of the song you would like to add to a playlist.");
+ 									System.out.println("You can also type multiple numbers followed by a space to add multiple songs. ex.\"1 3 5\" would add songs 1, 3, and 5");
+ 									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
+ 										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
+ 									}
+ 								}
+ 							}
+ 							//boolean playable = false;
+ 							Scanner lineScan = new Scanner(System.in);
+ 							lineScan.useDelimiter("[\n]");
+ 							String songrequest = lineScan.next();
+ 							String tempdelims = "[\\W]+";
+ 							String[] temptoken = null;
+ 							temptoken = songrequest.split(tempdelims);
+ 							LinkedList<OwnedSong> playlist = new LinkedList<OwnedSong>();
+ 							for(int i=0;i<temptoken.length;i++){
+ 								try{
+ 								int temp=Integer.parseInt(temptoken[i]);
+ 								int size=UM.getUsers().get(usernum).getOwnedLibrary().size();
+ 								if(temp<size+1&&temp>0){
+ 									playlist.add((OwnedSong) UM.getUsers().get(usernum).getOwnedLibrary().get(temp-1));
+ 								}
+ 									
+ 								
+ 								}
+ 								catch (NumberFormatException e)
+ 								{			
+ 									//e.printStackTrace();
+ 									System.out.println("you entered " + temptoken[i] + " but this was not a number");
+ 								}
+ 								}
+ 							UM.getUsers().get(usernum).addPlaylist(new Playlist(playlist));
+ 							//System.out.println(UM.getUsers().get(usernum).getPlaylist().get(0));
+ 							
+ 							//create playlist
+ 							break;
+ 						}
+						 case "3": {
+							 int usernum=0;
+                             for(int i = 0; i < UM.getUsers().size(); i++) {
+                                     if(UM.getUsers().get(i).getUsername().equals(current)) {
+                                    	 if(UM.getUsers().get(i).getPlaylist().size()==0){
+                                    		 System.out.println("You don't have any playlists");
+                                    		 break;
+                                    	 }
+                                    	 usernum=i;
+                                             System.out.println("Hello " + current + " here is the list of playlists that you have.");
+                                             for(int j = 0; j < UM.getUsers().get(i).getPlaylist().size(); j++) {
+                                                     System.out.println("playlist "+(j+1) + ":\n" + UM.getUsers().get(i).getPlaylist().get(j));
+                                             }
+                                     
+                                     System.out.println("Please type the number of the playlist you would like to edit or \"exit\" to exit");
+                                     Scanner lineScan = new Scanner(System.in);
+                                     String as=lineScan.next();
+                                     int temp=0;
+                                     if(as.equals("exit")){
+                                    	 break;
+                                     }
+                                     try{
+                                    	temp=Integer.parseInt(as);
+          								int size=UM.getUsers().get(usernum).getPlaylist().size();
+          								if(temp>size+1||temp<0){
+          									System.out.println(as+" was not a vaild number.");
+          									break;
+          								}
+          									
+          								
+          								}
+          								catch (NumberFormatException e)
+          								{			
+          									//e.printStackTrace();
+          									System.out.println(as+" was not a vaild number.");
+          									break;
+          								}
+                                     System.out.println("How would you like to change playlist "+ as+"? Please type either add, remove or delete.");
+                                     String as1=lineScan.next();
+                                     if(as1.equals("add")){
+                                    	 int temp2=0;
+                                    	 System.out.println("This is the list of songs you can add to your playlist. Type the number of the song you would like to add to the playlist.");
+                                    	 for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
+      										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
+      									}
+                                    	 String as2=lineScan.next();
+                                    	 try{
+                                    	temp2=Integer.parseInt(as2);
+           								int size=UM.getUsers().get(usernum).getOwnedLibrary().size();
+           								if(temp2>size+1||temp2<0){
+           									System.out.println(as2+" was not a vaild number.");
+           									break;
+           								}
+                                    	 }
+                                    	 catch (NumberFormatException e){
+                                    		 System.out.println(as2+" was not a vaild number.");
+           									break;
+                                    	 }
+                                    	 UM.getUsers().get(usernum).getPlaylist().get(temp-1).addsong((OwnedSong) UM.getUsers().get(i).ownedLibrary.getSongs().get(temp2-1));
+                                    	 System.out.println("The song titled "+ UM.getUsers().get(i).ownedLibrary.getSongs().get(temp2-1).getName() + " was added to playlist " +temp+ '\n');
+                                    	 break;
+                                     }
+                                     
+                                   
+                                     if(as1.equals("remove")){
+                                    	 int temp2=0;
+                                    	 System.out.println("This is the list of songs you can remove from your playlist. Type the number of the song you would like to remove.");
+                                    	 for(int j = 0; j < UM.getUsers().get(usernum).getPlaylist().get(temp-1).getsize(); j++) {
+      										System.out.println(j+1 + ": " + UM.getUsers().get(i).getPlaylist().get(temp-1).getsong(j));
+      									}
+                                    	 String as2=lineScan.next();
+                                    	 try{
+                                    	temp2=Integer.parseInt(as2);
+           								int size=UM.getUsers().get(usernum).getPlaylist().get(temp-1).getsize();
+           								if(temp2>size+1||temp2<0){
+           									System.out.println(as2+" was not a vaild number.");
+           									break;
+           								}
+                                    	 }
+                                    	 catch (NumberFormatException e){
+                                    		 System.out.println(as2+" was not a vaild number.");
+           									break;
+                                    	 }
+                                    	 System.out.println("The song titled "+ UM.getUsers().get(i).getPlaylist().get(temp-1).getsong(temp2-1).getName() + " was removed from playlist " +temp+ '\n');
+                                    	 UM.getUsers().get(usernum).getPlaylist().get(temp-1).removesong(temp2-1);
+                                    	 break;
+                                     }
+                                     if(as1.equals("delete")){
+                                    	 UM.getUsers().get(i).getPlaylist().remove(temp-1);
+                                    	 System.out.println("Playlist "+ as1 + " was deleted\n");
+                                     }
+                                     else{
+                                    	 System.out.println("\""+as1+ "\" was not a valid input\n");
+                                     }
+                                     }
+                             }
+                             ////edit playlist
+                             break;
+                     }
 						case "4": {
 							String songchange = "";
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
 									System.out.println("Hello " + current + " this is the list of songs you can edit. Type the number of the song you would like to edit.");
 									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
-										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
+										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j)+ '\n');
 									}
 								}
 							}
@@ -389,12 +542,14 @@ private String current;
 				String b = "";
 			
 			while (b.equals("3") == false) {
+				System.out.println("What would you like to do?");
 				System.out
-				.println("\n1. Borrow a song\n\n2. Take back a song\n\n3. go back\n\nEnter one of the numbers above.\n");
+				.println("\n1. Borrow a song\n\n2. Take back a song\n\n3. Go back\n\nEnter one of the numbers above.\n");
 				b = reader.next();
 				switch (b) {
 						case "1": {
-							System.out.println("Hello " + current + " who would you like to borrow a song from? Please Enter the usename of the person you'd like to add. They must be on your friends list and logged into the system.");
+							System.out.println("Hello " + current + " who would you like to borrow a song from?");
+							System.out.println("Please enter the username of the person you would like to borrow from.\n(Note: They must be on your friends list and logged into the system.)");
 							String songrequest = reader.next();
 							boolean friendslist = false;
 							boolean loggedin = false;
@@ -424,10 +579,10 @@ private String current;
 								}
 							}
 							if(loggedin == false) {
-								System.out.println("That user is not logged in. Can't send requests to users who have not logged in.");
+								System.out.println("That user is not logged in. Can't send requests to users who have not logged in.\n");
 							}
 							if(friendslist == false) {
-								System.out.println("That user is not on your friends list. You cannot request to borrow songs from them.");
+								System.out.println("That user is not on your friends list. You cannot request to borrow songs from them.\n");
 							}
 							//Grab the User object of the sender & receiver
 							for(int i = 0; i < UM.getUsers().size(); i++) {
@@ -440,7 +595,7 @@ private String current;
 							}
 							//if the user is logged in and is on the friends list then send the request.
 							if(loggedin == true && (friendslist == true)) {
-								System.out.println("Here is a list of the songs your friend has available for playing. Select the number that you want to request to borrow.");
+								System.out.println("Here is a list of the songs your friend has available for playing.\nSelect the number that you want to request to borrow.");
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(songrequest)) {
 										for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
@@ -482,7 +637,7 @@ private String current;
 							break;
 						}
 						case "2": {
-							System.out.println("Hello " + current + " who would you like to take a song back from? The user must be logged into the system and must be on your friends list.");
+							System.out.println("Hello " + current + " who would you like to take a song back from?\n(Note: The user must be logged into the system and must be on your friends list.)");
 							String friend = reader.next();
 							boolean friendslist = false;
 							boolean loggedin = false;
@@ -497,7 +652,7 @@ private String current;
 								}
 							}
 								if(friendslist == false) {
-									System.out.println("That user is not on your friends list.");
+									System.out.println("That user is not on your friends list.\n");
 									break;
 								}
 								for(int ix = 0; ix < UM.Loggedin.size(); ix++) {
@@ -506,11 +661,11 @@ private String current;
 									}
 								}
 								if(loggedin == false) {
-									System.out.println("That user is not logged in.");
+									System.out.println("That user is not logged in.\n");
 								}
 								
 							
-							System.out.println("Here is the list of your friend's songs. Please enter the number of the song you would like to take back.");
+							System.out.println("Here is the list of your friend's songs.\nPlease enter the number of the song you would like to take back.\n");
 							int jk = 0;
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(friend)) {
@@ -527,14 +682,14 @@ private String current;
 							Song songtoadd = null;
 							boolean input = true;
 							if(songr < 1) {
-								System.out.println("Invald input. Please enter a correct number.");
+								System.out.println("Invald input. Please enter a correct number.\n");
 								input = false;
 								break;
 							}
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(friend)) {
 									if(songr > UM.getUsers().get(i).playableLibrary.getSongs().size()) {
-										System.out.println("Invald input. Please enter a correct number.");
+										System.out.println("Invald input. Please enter a correct number.\n");
 										input = false;
 										owned = true;
 										break;
@@ -563,7 +718,7 @@ private String current;
 							}
 							}
 							if(owned == false) {
-								System.out.println("You do not own that song. If you would like to borrow a friend's song you can submit a borrow request.");
+								System.out.println("You do not own that song.\nIf you would like to borrow a friend's song you can submit a borrow request.");
 							}
 							//take back song
 							break;
@@ -573,7 +728,7 @@ private String current;
 						}
 						default: {
 							System.out
-							.println("Invalid input. Please enter one of the numerical values above.");
+							.println("Invalid input. Please enter one of the numerical values above.\n");
 							break;
 						}
 				
@@ -586,12 +741,13 @@ private String current;
 				String b = "";
 			
 			while (b.equals("4") == false) {
+				System.out.println("What would you like to do?");
 				System.out
-				.println("\n1. Sorting options\n\n2. Library visability\n\n3. borrow length\n\n4. go back\n\nEnter one of the numbers above.\n");
+				.println("\n1. Change sorting options\n\n2. Change library visability\n\n3. Edit song borrow length\n\n4. Go back\n\nEnter one of the numbers above.\n");
 				b = reader.next();
 				switch (b) {
 						case "1": {
-							System.out.println("Hello " + current + " how would you like to sort your Library? You can sory by Artist, Song Name, Song Year, Song Album, Or the Genre. Please Enter one of the options to sort the song by.");
+							System.out.println("Hello " + current + " how would you like to sort your Library?\nYou can sort by Artist, Song Name, Song Year, Song Album, Or the Genre.\nPlease Enter one of the options to sort the song by.");
 							boolean sorted = false;
 							String sortoption = reader.next();
 							if(sortoption.equals("Artist")) {
@@ -609,7 +765,7 @@ private String current;
 						}
 						case "2": {
 							//Library visability
-							System.out.println("Hello " + current + " you have the option to make your library visible by everyone or just friends. The default setting is that everyone can see your library.");
+							System.out.println("Hello " + current + " you have the option to make your library visible to everyone or just friends.\nThe default setting is that everyone can see your library.\n");
 							User curr = null;
 							String vis = "";
 							for(int i = 0; i < UM.getUsers().size(); i++) {
@@ -619,10 +775,10 @@ private String current;
 							}
 							vis = curr.getVisibility();
 							if(vis.equals("e")) {
-							System.out.println("Would you like to change your visibility? It is currently set to the option that everyone can see your library. Please answer yes or no.");	
+							System.out.println("Would you like to change your visibility?\nCurrently your Library is visable to everyone.\nPlease answer yes or no.\n(Note: Saying yes will change visability to Friends Only.)");	
 							}
 							else if(vis.equals("f")) {
-								System.out.println("Would you like to change your visibility? Currently your friends are the only ones that can see your Library. Please answer yes or no.");
+								System.out.println("Would you like to change your visibility?\nCurrently your Library is only visable to friends.\nPlease answer yes or no.\n(Note: Saying yes will change visability to Everyone.)");
 							}
 							String option = reader.next();
 							if(option.equals("yes") && vis.equals("f")) {
@@ -643,7 +799,69 @@ private String current;
 							break;
 						}
 						case "3": {
-							//borrow length
+							System.out.println("Hello " + current + " you have the option to change the length which a song is borrowed for.\nThe default setting is 3 plays.\n");
+							User curr = null;
+							for(int i = 0; i < UM.getUsers().size(); i++) {
+								if(UM.getUsers().get(i).getUsername().equals(current)) {
+									curr = UM.getUsers().get(i);
+								}
+							}
+							if(curr.getBorrowtime()==-1) {
+								System.out.println("Would you like to change your borrow length?\nCurrently your borrow length is "+ curr.getPlayamount()+ " plays.\nPlease answer yes or no.\n");	
+								}
+							else{
+								System.out.println("Would you like to change your borrow length?\nCurrently your borrow length is"+ curr.getBorrowtime()+ " minutes.\nPlease answer yes or no.\n");
+							}
+							String option = reader.next();
+							if(option.equals("yes")){
+								System.out.println("You can either lend for plays or minutes, please enter minutes or plays to change borrow length.");
+								option = reader.next();
+								if(option.equals("plays")){
+									System.out.println("Please enter the number of plays you want to lend a song out for.");
+									option = reader.next();
+									try{
+										int temp=Integer.parseInt(option);
+										if(temp<1){
+											System.out.println("You entered "+option +" which was not a valid number.");
+										}
+										curr.setPlayamount(temp);
+										curr.setBorrowtime(-1);
+										System.out.println("You changed the number of plays a song is lent out for to "+temp+'.');
+										
+									}
+									catch(NumberFormatException e){
+										System.out.println("You entered "+option +" which was not a valid number.");
+									}
+								}
+								else if(option.equals("minutes")){
+									System.out.println("Please enter the number of minutes you want to lend a song out for.");
+									option = reader.next();
+									try{
+										int temp=Integer.parseInt(option);
+										if(temp<1){
+											System.out.println("You entered "+option +" which was not a valid number.");
+										}
+										curr.setBorrowtime(temp);
+										curr.setPlayamount(-1);
+										System.out.println("You changed the length a song is lent out for to "+temp+" minutes.");
+										
+									}
+									catch(NumberFormatException e){
+										System.out.println("You entered "+option +" which was not a valid number.");
+									}
+								}
+								else{
+									System.out.println("Invalid input.");
+									break;
+								}
+							}
+							else if(option.equals("no")){
+								break;
+							}
+							else{
+								System.out.println("Invalid input.");
+								break;
+							}
 							break;
 						}
 						case "4": {
@@ -664,8 +882,9 @@ private String current;
 				String b = "";
 			
 			while (b.equals("3") == false) {
+				System.out.println("What would you like to do?");
 				System.out
-				.println("\n1. check messages\n\n2. send friend request \n\n3. Go back\n\nEnter one of the numbers above.\n");
+				.println("\n1. Check messages\n\n2. Send friend request \n\n3. Go back\n\nEnter one of the numbers above.\n");
 				b = reader.next();
 				switch (b) {
 						case "1": {
@@ -687,7 +906,7 @@ private String current;
 									System.out.println(UM.getUsers().get(i).getFirstMessage());
 									UM.getUsers().get(i).getFirstMessage();
 									String sender = UM.getUsers().get(i).getFirstMessage().sender.getUsername();
-									System.out.println("Would you like to accept or deny the request? Type yes to accept and no to deny.");
+									System.out.println("Would you like to accept or deny the request?\nType yes to accept and no to deny.");
 									String request = "";
 							while(true) {
 									request = reader.next();
@@ -744,7 +963,7 @@ private String current;
 						}
 						case "2": {
 							//send friend request
-							System.out.println("Hello " + current + " who would you like to send a friend request to? Please Enter the usename of the person you'd like to add.");
+							System.out.println("Hello " + current + " who would you like to send a friend request to?\nPlease Enter the username of the person you would like to add.");
 							String friendrequest = reader.next();
 							boolean friendslist = false;
 							boolean loggedin = false;
@@ -820,22 +1039,24 @@ private String current;
 				String b = "";
 			
 			while (b.equals("4") == false) {
+				System.out.println("What would you like to do?");
 				System.out
-				.println("\n1. search by friend\n\n2. search by all friends\n\n3. search all non friends\n\n4. go back\n\nEnter one of the numbers above.\n");
+				.println("\n1. Search by friend\n\n2. Search by all friends\n\n3. Search all non friends\n\n4. Go back\n\nEnter one of the numbers above.\n");
 				b = reader.next();
 				switch (b) {
 						case "1": {
-							System.out.println("Which friend's library would you like to see? Enter the number of the friend whose library you would like to view.");
+							System.out.println("Which friend's library would you like to see?\n");
 							
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
 									
-									System.out.println("Here is a list of your friends");
+									System.out.println("Here is a list of your friends: ");
 									for(int j = 0; j < UM.getUsers().get(i).getFriends().size(); j++) {
 										System.out.println(j+1 + ": " + UM.getUsers().get(i).getFriends().get(j));
 									}
 								}
 							}
+							System.out.println("\nEnter the number of the friend whose library you would like to view?");
 							String songrequest = reader.next();
 							int songr = Integer.parseInt(songrequest);
 							String username = "";
@@ -844,15 +1065,18 @@ private String current;
 									username = UM.getUsers().get(i).getFriends().get(songr-1);
 								}
 							}
+							
 							int k = 1;
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(username)) {
+									System.out.println("Here is " + UM.getUsers().get(i).getUsername() + "'s library.\n");
 									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
 									System.out.println(k + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
 									k++;
 									}
 								}
 							}
+							System.out.println("");
 							break;
 						}
 						case "2": {
@@ -877,11 +1101,12 @@ private String current;
 								}
 								
 							}
+							System.out.println("");
 							//search by all friends
 							break;
 						}
 						case "3": {
-							System.out.println("Here is the entire list of libraries from users who are not your friends.");
+							System.out.println("Here is the entire list of libraries from users who are not your friends.\n");
 							User currentuser = null;
 							LinkedList<String> notfriends = new LinkedList<String>();
 							for(int i = 0; i < UM.getUsers().size(); i++) {
@@ -936,7 +1161,7 @@ private String current;
 						}
 						default: {
 							System.out
-							.println("Invalid input. Please enter one of the numerical values above.");
+							.println("Invalid input. Please enter one of the numerical values above.\n");
 							break;
 						}
 				
@@ -949,6 +1174,7 @@ private String current;
 				
 				String b = "";
 				while(b.equals("3") == false) {
+					System.out.println("What would you like to do?");
 					System.out.println("\n1. Login as someone new/exit the program.\n\n2. Switch Users\n\n3. Logout the current user out of the system. \n\n4. Go back");
 					b = reader.next();
 					switch(b) {
@@ -965,7 +1191,7 @@ private String current;
 						break;
 					}
 					default: {
-						System.out.println("Invalid input, Please enter one of the options above");
+						System.out.println("Invalid input, Please enter one of the options above.\n");
 						break;
 					}
 					}
@@ -1007,7 +1233,13 @@ private String current;
 								String name = reader.next();
 								System.out.println("Enter " + name + "'s password.");
 								String password = reader.next();
-								UM.addUser(name, password);
+								User newuser = new User(name,password);
+								newuser.setVisibility("e");
+								newuser.setBorrowtime(-1);
+								newuser.setPlayamount(3);
+
+								UM.addUser(newuser);
+;
 								break;
 							}
 							case "4": {
