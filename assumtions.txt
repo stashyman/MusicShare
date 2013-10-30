@@ -1,5 +1,7 @@
 Assumptions:
 
+Q. How will the user list be read into the system?
+A. A file named test.txt will be read into the run configurations in the Eclipse menu.
 Q. How will users be read into a file? 
 A. The users will be read in in the following format: USERNAME, PASSWORD [Songs Owned](Friends)
 Q. How will users be differentiated in the file?
