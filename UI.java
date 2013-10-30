@@ -787,6 +787,9 @@ private String current;
 								UM.getOwnedLib().setSortBy(_sort);
 								UM.getOwnedLib().sortLib();
 							}
+							else{
+								System.out.println(so + "was not a valid option to sort by.");
+							}
 							//sorting options
 							break;
 						}
