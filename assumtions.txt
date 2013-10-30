@@ -1,8 +1,13 @@
 Assumptions:
 
-We assume that a username will not be read in on the file twice.
-We assume that all friend relationships being read in on the file are mutual.
-We assume that songs can be duplicated.
-We assume that all of a user's messages (song requests, friend requests) will remain active until the program is killed.
-We assume that you cannot interact with any user than has not logged in.
-We assume that the user will read in a number when the UI prompts for a number. (It doesn't necessarily have to be a correct number though)
+Q. How will users be read into a file? 
+A. The users will be read in in the following format: USERNAME, PASSWORD [Songs Owned](Friends)
+Q. How will users be differentiated in the file?
+A. A single user's information will be all read in on one line. Each new user will be read in on a line right below the previous user, without a newline separating the two users.
+Q. What if one user has a user on their friends list and the other user does not?
+A. All friend relationships and mutual. If one user has a friend then the other will also have that friend.
+Q. Will duplicate entries be allowed?
+A. Duplicate usernames will be removed but duplicate songs are allowed.
+Q. What will happen when a user has not responded to friend and song requests but has logged out of the system?
+A. All requests will remain until the user answers them or the program is killed.
+
