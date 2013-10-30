@@ -13,10 +13,10 @@ first number equals the main menu option and #) is the sub menu option
 (2) (1) Add a song gives an out of bounds error when adding the song with any combination
 
 (3) (1) When requesting a song from self it displays that you can not request from self but then still shows songs and asks what song you wish to borrow.
-	    - is that what we want it to do?
+	    Did not want - Fixed
    
 (3) (2) When taking back a song from a friend and they are not logged in, it still shows friends songs.
-	    - do we want that?
+	    Did not want - Fixed
   
 (3) (2) When taking back a song and invalid input is given it dumps out to menu and does not allow for another song choice/
 
