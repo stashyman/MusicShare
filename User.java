@@ -6,10 +6,10 @@ public class User {
 	private String username;
 	private String password;
 	private LinkedList<Message> messages = new LinkedList<Message>();
-	public Library ownedLibrary = new Library();
-	public Library playableLibrary = new Library();
+	private Library ownedLibrary = new Library();
+	private Library playableLibrary = new Library();
 	private LinkedList<String> friends = new LinkedList<String>();
-	public String visible;
+	private String visible;
 	private LinkedList<Playlist> playlist = new LinkedList<Playlist>();
 	private int borrowtime;
 	private int playamount;
@@ -33,14 +33,8 @@ public class User {
 			friends.add((String)LI.next());
 		}
 	}
-	//Need to add method if friends list is empty so it does not through a no such element exception
-	public void PrintFriends() {
-		ListIterator<String> tempFriend = friends.listIterator();
-		while(tempFriend.hasNext()){
-			System.out.println(tempFriend.next());
-		}
-	}
 	
+	//Need to add method if friends list is empty so it does not through a no such element exception
 	public void addSongsList(Song s) {
 		ownedLibrary.getSongs().add(s);
 	}
