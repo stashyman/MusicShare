@@ -938,7 +938,7 @@ private String current;
 				b = reader.next();
 				switch (b) {
 						case "1": {
-							System.out.println("Hello " + current + " how would you like to sort your Library?\nYou can sort by Artist, Song Title, Song Year, Song Album, Or the Genre.\nPlease Enter one of the options to sort the song by.");
+							System.out.println("Hello " + current + " how would you like to sort your Library?\nYou can sort by Artist, Title, Year, Album, or Genre.\nPlease Enter one of the options to sort the song by.");
 							String so = reader.next();
 							so = so.toLowerCase();
 							Sort _sort;
@@ -948,6 +948,7 @@ private String current;
 								UM.getPlayableLib().setSortBy(_sort);
 								UM.getPlayableLib().sortLib();
 								UM.getOwnedLib().sortLib();
+								System.out.println("Your library is now sorted by " + so + ".\n");
 							}
 							else{
 								System.out.println("\"" + so + "\" was not a valid option to sort by.");
