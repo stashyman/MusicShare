@@ -11,7 +11,7 @@ public class User {
 	private LinkedList<String> friends = new LinkedList<String>();
 	private String visible;
 	private LinkedList<Playlist> playlist = new LinkedList<Playlist>();
-	private int borrowtime;
+	private float borrowtime;
 	private int playamount;
 	public User(String username_, String password_, String friends_, String visible_){
 		username = username_;
@@ -95,11 +95,11 @@ public class User {
 	public void setPlayamount(int playamount) {
 		this.playamount = playamount;
 	}
-	public int getBorrowtime() {
+	public float getBorrowtime() {
 		return borrowtime;
 	}
-	public void setBorrowtime(int borrowtime) {
-		this.borrowtime = borrowtime;
+	public void setBorrowtime(float temp) {
+		this.borrowtime = temp;
 	}
 	
 }
