@@ -7,7 +7,7 @@ import java.util.Enumeration;
 public class UserManager{
 	private Hashtable<String, User> Users;
 	private String currentUser;
-	public LinkedList<String> Loggedin = new LinkedList<String>();
+	private LinkedList<String> Loggedin = new LinkedList<String>();
 	private String type;
 	
 	/*Constructor*/
@@ -93,6 +93,10 @@ public class UserManager{
 		}
 		currentUser = _user;
 		return true;
+	}
+	
+	public LinkedList<String> getLoggedIn(){
+		return Loggedin;
 	}
 	
 

@@ -12,9 +12,9 @@ private String current;
 	}
 	public void Logout() {
 		System.out.println("User " + current + " has successfully been logged out.");
-		for(int i = 0; i < UM.Loggedin.size(); i++) {
-			if(UM.Loggedin.get(i).equals(current)) {
-				UM.Loggedin.remove(i);
+		for(int i = 0; i < UM.getLoggedIn().size(); i++) {
+			if(UM.getLoggedIn().get(i).equals(current)) {
+				UM.getLoggedIn().remove(i);
 			}
 		}
 		current = "";
@@ -35,8 +35,8 @@ private String current;
 				System.out.println("You are already logged in as " + current + ".");
 				runOutput();
 			}
-			for(int i = 0; i < UM.Loggedin.size(); i++) {
-				if(UM.Loggedin.get(i).equals(t)) {
+			for(int i = 0; i < UM.getLoggedIn().size(); i++) {
+				if(UM.getLoggedIn().get(i).equals(t)) {
 					checked = true;
 				}
 			}
@@ -93,12 +93,12 @@ private String current;
 						current = t;
 						UM.setCurrentUser(t);
 						boolean already=false;
-						for(int i = 0; i < UM.Loggedin.size(); i++) {
-							if(UM.Loggedin.get(i).equals(current)) {
+						for(int i = 0; i < UM.getLoggedIn().size(); i++) {
+							if(UM.getLoggedIn().get(i).equals(current)) {
 								already=true;
 							}
 						}
-						if (already==false) UM.Loggedin.add(t);
+						if (already==false) UM.getLoggedIn().add(t);
 						//Don't add multiple users to logged in list when switching users.
 					}
 				}
@@ -813,8 +813,8 @@ private String current;
 							}
 							
 							//Check if User is logged in.
-							for(int i = 0; i < UM.Loggedin.size(); i++) {
-								if(songrequest.equals(UM.Loggedin.get(i))) {
+							for(int i = 0; i < UM.getLoggedIn().size(); i++) {
+								if(songrequest.equals(UM.getLoggedIn().get(i))) {
 									loggedin = true;
 								}
 							}
@@ -1274,8 +1274,8 @@ private String current;
 								}
 							}
 							//Check if User is logged in.
-							for(int i = 0; i < UM.Loggedin.size(); i++) {
-								if(friendrequest.equals(UM.Loggedin.get(i))) {
+							for(int i = 0; i < UM.getLoggedIn().size(); i++) {
+								if(friendrequest.equals(UM.getLoggedIn().get(i))) {
 									loggedin = true;
 								}
 							}
