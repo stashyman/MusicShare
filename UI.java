@@ -112,6 +112,7 @@ private String current;
 		}
 	}
 	public void runOutput(){
+		System.out.println();
 		System.out.println("Hello " + current + ". Please enter one of the options below: \n");
 		while (true) {
 			System.out
@@ -133,6 +134,18 @@ private String current;
 					switch (b) {
 					//Need to check if borrowed and decrease playcount if it is.
 							case "1": {
+								boolean hassongs = true;
+								for(int ix = 0; ix < UM.getUsers().size(); ix++) {
+									if(UM.getUsers().get(ix).getUsername().equals(current)) {
+										if(UM.getUsers().get(ix).getOwnedLibrary().size() == 0) {
+											System.out.println("You don't have any songs in your library.");
+											hassongs = false;
+										}
+									}
+								}
+								if(hassongs == false) {
+									break;
+								}
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(current)) {
 										System.out.println("Hello " + current + ", here is the list of songs you can play.\n");
@@ -214,6 +227,20 @@ private String current;
 							}
 							case "2": {
 								// play playlist method here. We can list the playlist available to play here
+								boolean hasplaylist = false;
+								for(int ix = 0; ix < UM.getUsers().size(); ix++) {
+									if(UM.getUsers().get(ix).getUsername().equals(current)) {
+										if(UM.getUsers().get(ix).getPlaylist().size()==0){
+								       		
+								       		 hasplaylist = true;
+								       	 }
+									}
+								}
+								if(hasplaylist == true) {
+									System.out.println("You don't have any playlists");
+									break;
+								}
+
 								int usernum=0;
 								System.out.println("Hello " + current + " here is the list of your available playlists.\n");
 								for(int i = 0; i < UM.getUsers().size(); i++) {
@@ -310,6 +337,18 @@ private String current;
 							break;
 						}
 						case "2": {
+							boolean hassongs = true;
+							for(int ix = 0; ix < UM.getUsers().size(); ix++) {
+								if(UM.getUsers().get(ix).getUsername().equals(current)) {
+									if(UM.getUsers().get(ix).getOwnedLibrary().size() == 0) {
+										System.out.println("You don't have any songs in your library.");
+										hassongs = false;
+									}
+								}
+							}
+							if(hassongs == false) {
+								break;
+							}
 							System.out.println("Hello " + current + " which song would you like to remove from your library? Please enter the number of the song you would like to remove. You cannot remove songs that you have lent out until you take them back.");
 							//Need to remove from owned library
 							//
@@ -369,6 +408,18 @@ private String current;
 						}
 						 case "3": {
  							//Need to create multiple playlists.
+							 boolean hassongs = true;
+								for(int ix = 0; ix < UM.getUsers().size(); ix++) {
+									if(UM.getUsers().get(ix).getUsername().equals(current)) {
+										if(UM.getUsers().get(ix).getOwnedLibrary().size() == 0) {
+											System.out.println("You don't have any songs in your library.");
+											hassongs = false;
+										}
+									}
+								}
+								if(hassongs == false) {
+									break;
+								}
                          	int usernum=0;
  							for(int i = 0; i < UM.getUsers().size(); i++) {
  								if(UM.getUsers().get(i).getUsername().equals(current)) {
@@ -413,11 +464,24 @@ private String current;
  							break;
  						}
 						 case "4": {
+							 boolean hasplaylist = false;
+							 for(int ix = 0; ix < UM.getUsers().size(); ix++) {
+							 	if(UM.getUsers().get(ix).getUsername().equals(current)) {
+							 		if(UM.getUsers().get(ix).getPlaylist().size()==0){
+							        		
+							        		 hasplaylist = true;
+							        	 }
+							 	}
+							 }
+							 if(hasplaylist == true) {
+							 	System.out.println("You don't have any playlists");
+							 	break;
+							 }
+
 							 int usernum=0;
                              for(int i = 0; i < UM.getUsers().size(); i++) {
                                      if(UM.getUsers().get(i).getUsername().equals(current)) {
                                     	 if(UM.getUsers().get(i).getPlaylist().size()==0){
-                                    		 System.out.println("You don't have any playlists");
                                     		 break;
                                     	 }
                                     	 usernum=i;
@@ -512,6 +576,18 @@ private String current;
                              break;
                      }
 						case "5": {
+							boolean hassongs = true;
+							for(int ix = 0; ix < UM.getUsers().size(); ix++) {
+								if(UM.getUsers().get(ix).getUsername().equals(current)) {
+									if(UM.getUsers().get(ix).getOwnedLibrary().size() == 0) {
+										System.out.println("You don't have any songs in your library.");
+										hassongs = false;
+									}
+								}
+							}
+							if(hassongs == false) {
+								break;
+							}
 							String songchange = "";
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
