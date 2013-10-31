@@ -161,9 +161,45 @@ private String current;
 									}
 								}
 								System.out.println();
+								//if this is false we need to return;
+								boolean keepsong=true;
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).playableLibrary.getSongs().size()) {
-											System.out.println("You are currently playing the song titled: " + UM.getUsers().get(i).playableLibrary.getSongs().get(songr-1).getName() + "\n");
+										
+											//System.out.println("You are currently playing the song titled: " + UM.getUsers().get(i).playableLibrary.getSongs().get(songr-1).getName() + "\n");
+										keepsong=UM.getUsers().get(i).playableLibrary.getSongs().get(songr-1).play();
+										if(keepsong==false){
+											BorrowedSong temp=(BorrowedSong) UM.getUsers().get(i).playableLibrary.getSongs().get(songr-1);
+											String owner=temp.getOwner();
+											String borrower=current;
+											Song songtoadd=new Song(temp.getName(),temp.getArtist(),temp.getAlbum(),temp.getYear(),temp.getComposer(),temp.getGenre(),owner);
+											for(int ix = 0; ix < UM.getUsers().size(); ix++) {
+												if(UM.getUsers().get(ix).getUsername().equals(owner) && songtoadd != null) {
+													UM.getUsers().get(ix).playableLibrary.getSongs().add(songtoadd);
+													for(int j=0;j<UM.getUsers().get(ix).getOwnedLibrary().size();j++){
+														OwnedSong ownedsong=(OwnedSong)UM.getUsers().get(ix).getOwnedLibrary().get(j);
+														if(ownedsong.getName().equals(songtoadd.name)
+																&&ownedsong.getIsLent()==true){
+															ownedsong.setIsLent(false);
+															UM.getUsers().get(ix).getOwnedLibrary().set(j,ownedsong);
+															
+														}
+													}
+												}
+												else if(UM.getUsers().get(ix).getUsername().equals(borrower)) {
+													for(int j=0;j<UM.getUsers().get(ix).playableLibrary.getSongs().size();j++){
+														if(UM.getUsers().get(ix).playableLibrary.getSongs().get(j).getName().equals(temp.getName())
+																&&UM.getUsers().get(ix).playableLibrary.getSongs().get(j).getOwner().equals(owner)){
+															UM.getUsers().get(ix).playableLibrary.getSongs().remove(j);
+														}
+															
+													}
+													System.out.println("The song you had borrowed titled "+songtoadd.getName()+ " has been sent back to "+owner);
+												}
+											}
+											
+										}
+										
 											playable = true;
 									}
 								}
@@ -197,7 +233,7 @@ private String current;
 	                                     try{
 	                                    	temp=Integer.parseInt(as);
 	          								int size=UM.getUsers().get(usernum).getPlaylist().size();
-	          								if(temp>size+1||temp<0){
+	          								if(temp>size||temp<0){
 	          									System.out.println(as+" was not a vaild number.");
 	          									break;
 	          								}
@@ -245,7 +281,7 @@ private String current;
 							String[] songdata = null;
 							String songdelims = "[//(//,//)]";
 							System.out.println("Hello " + current + " Please enter the new song you want to add in the following format:");
-							System.out.println("(Name, Artist, Album, Year, Composer, Genre) (Note: The entry must include the () .)\n");
+							System.out.println("(Title, Artist, Album, Year, Composer, Genre) (Note: The entry must include the () .)\n");
 							String songstring = "";
 							Scanner scan = new Scanner(System.in);
 							scan.useDelimiter("[\n]");
@@ -265,19 +301,22 @@ private String current;
 								UM.getUserCurrentUser().getPlayableLib().getSongs().add(newsong);
 							}
 							else{
-								System.out.println("Invalid input.  Please enter your song with the format: (Name, Artist, Album, Year, Composer, Genre)");
+								System.out.println("Invalid input.  Please enter your song with the format: (Title, Artist, Album, Year, Composer, Genre)");
 							}
 							break;
 						}
 						case "2": {
-							System.out.println("Hello " + current + " which song would you like to remove from your library?\nPlease enter the number of the song you would like to remove. \n(Note: You cannot remove songs that you have lent out until you take them back.)\n");
-							
+							System.out.println("Hello " + current + " which song would you like to remove from your library? Please enter the number of the song you would like to remove. You cannot remove songs that you have lent out until you take them back.");
+							//Need to remove from owned library
+							//
+							//
+							//
 							int jx = 0;
 							boolean input = true;
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
-									for(int j = 0; j < UM.getUsers().get(i).playableLibrary.getSongs().size(); j++) {
-										System.out.println(jx + 1 + ": " + UM.getUsers().get(i).playableLibrary.getSongs().get(j));
+									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
+										System.out.println(jx + 1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
 										jx++;
 									}
 								}
@@ -290,7 +329,7 @@ private String current;
 							}
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
-									if(songr > UM.getUsers().get(i).playableLibrary.getSongs().size()) {
+									if(songr > UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
 										input = false;
 										System.out.println("Invalid input. Please enter one of the numbers above.");
 										break;
@@ -302,9 +341,19 @@ private String current;
 								break;
 							}
 							for(int i = 0; i < UM.getUsers().size(); i++) {
-								if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).playableLibrary.getSongs().size()) {
-									System.out.println("Your song " + UM.getUsers().get(i).playableLibrary.getSongs().get(songr-1).name + " has been removed from your library.");
-									UM.getUsers().get(i).playableLibrary.getSongs().remove(songr-1);
+								if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
+									OwnedSong temp=(OwnedSong)UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1);
+									if(temp.getIsLent()==true){
+										System.out.println("The song "+ temp.getName()+ " is being lent out right now, please get it back before you try to delete it");
+										break;
+									}
+									for(int j=0;j<UM.getUsers().get(i).getPlayableLib().getSongs().size();j++){
+										if(UM.getUsers().get(i).getPlayableLib().getSongs().get(j).getName().equals(temp.getName())&&UM.getUsers().get(i).getPlayableLib().getSongs().get(j).getOwner().equals(current)){
+											UM.getUsers().get(i).getPlayableLib().getSongs().remove(j);
+										}
+									}
+									System.out.println("Your song " + UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).name + " has been removed from your library.");
+									UM.getUsers().get(i).ownedLibrary.getSongs().remove(songr-1);
 								}
 							}
 							break;
@@ -315,8 +364,8 @@ private String current;
  							for(int i = 0; i < UM.getUsers().size(); i++) {
  								if(UM.getUsers().get(i).getUsername().equals(current)) {
  									usernum=i;
- 									System.out.println("Hello " + current + " this is the list of songs you can add to your playlist.\nType the number of the song you would like to add to a playlist.");
- 									System.out.println("Type multiple numbers followed by a space to add multiple songs. ex.\"1 3 5\" would add songs 1, 3, and 5\n");
+ 									System.out.println("Hello " + current + " this is the list of songs you can add to your playlist. Type the number of the song you would like to add to a playlist.");
+ 									System.out.println("You can also type multiple numbers followed by a space to add multiple songs. ex.\"1 3 5\" would add songs 1, 3, and 5");
  									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
  										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
  									}
@@ -334,7 +383,7 @@ private String current;
  								try{
  								int temp=Integer.parseInt(temptoken[i]);
  								int size=UM.getUsers().get(usernum).getOwnedLibrary().size();
- 								if(temp<size+1&&temp>0){
+ 								if(temp<size&&temp>0){
  									playlist.add((OwnedSong) UM.getUsers().get(usernum).getOwnedLibrary().get(temp-1));
  								}
  									
@@ -347,7 +396,8 @@ private String current;
  								}
  								}
  							UM.getUsers().get(usernum).addPlaylist(new Playlist(playlist));
- 							//System.out.println(UM.getUsers().get(usernum).getPlaylist().get(0));
+ 							
+ 							System.out.println("You added a playlist with the songs\n" +UM.getUsers().get(usernum).getPlaylist().getLast());
  							
  							//create playlist
  							break;
@@ -376,7 +426,7 @@ private String current;
                                      try{
                                     	temp=Integer.parseInt(as);
           								int size=UM.getUsers().get(usernum).getPlaylist().size();
-          								if(temp>size+1||temp<0){
+          								if(temp>size||temp<0){
           									System.out.println(as+" was not a vaild number.");
           									break;
           								}
@@ -389,11 +439,11 @@ private String current;
           									System.out.println(as+" was not a vaild number.");
           									break;
           								}
-                                     System.out.println("How would you like to change playlist "+ as+"?\nPlease type either add, remove or delete.");
+                                     System.out.println("How would you like to change playlist "+ as+"? Please type either add, remove or delete.");
                                      String as1=lineScan.next();
                                      if(as1.equals("add")){
                                     	 int temp2=0;
-                                    	 System.out.println("This is the list of songs you can add to your playlist.\nType the number of the song you would like to add to the playlist.");
+                                    	 System.out.println("This is the list of songs you can add to your playlist. Type the number of the song you would like to add to the playlist.");
                                     	 for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
       										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
       									}
@@ -401,7 +451,7 @@ private String current;
                                     	 try{
                                     	temp2=Integer.parseInt(as2);
            								int size=UM.getUsers().get(usernum).getOwnedLibrary().size();
-           								if(temp2>size+1||temp2<0){
+           								if(temp2>size||temp2<0){
            									System.out.println(as2+" was not a vaild number.");
            									break;
            								}
@@ -418,7 +468,7 @@ private String current;
                                    
                                      if(as1.equals("remove")){
                                     	 int temp2=0;
-                                    	 System.out.println("This is the list of songs you can remove from your playlist.\nType the number of the song you would like to remove.");
+                                    	 System.out.println("This is the list of songs you can remove from your playlist. Type the number of the song you would like to remove.");
                                     	 for(int j = 0; j < UM.getUsers().get(usernum).getPlaylist().get(temp-1).getsize(); j++) {
       										System.out.println(j+1 + ": " + UM.getUsers().get(i).getPlaylist().get(temp-1).getsong(j));
       									}
@@ -426,7 +476,7 @@ private String current;
                                     	 try{
                                     	temp2=Integer.parseInt(as2);
            								int size=UM.getUsers().get(usernum).getPlaylist().get(temp-1).getsize();
-           								if(temp2>size+1||temp2<0){
+           								if(temp2>size||temp2<0){
            									System.out.println(as2+" was not a vaild number.");
            									break;
            								}
@@ -455,7 +505,7 @@ private String current;
 							String songchange = "";
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
-									System.out.println("Hello " + current + " this is the list of songs you can edit.\nType the number of the song you would like to edit.");
+									System.out.println("Hello " + current + " this is the list of songs you can edit. Type the number of the song you would like to edit.");
 									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
 										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j)+ '\n');
 									}
@@ -463,7 +513,14 @@ private String current;
 							}
 							boolean playable = false;
 							String songrequest = reader.next();
-							int songr = Integer.parseInt(songrequest);
+							int songr=0;
+							try{
+							songr = Integer.parseInt(songrequest);
+							}
+							catch(NumberFormatException e){
+								System.out.println("Invald input. Please enter a correct number.");
+								break;
+							}
 							boolean input = true;
 							if(songr < 1) {
 								System.out.println("Invald input. Please enter a correct number.");
@@ -487,11 +544,11 @@ private String current;
 							}
 							//Loop to change the song's metadata.
 							while(playable == true && !songchange.equals("exit")) {
-								System.out.println("Which part of the song would you like to change?\nPlease enter either the Name, Album, Artist, Year, Composer, or Genre");
+								System.out.println("Which part of the song would you like to change? Please enter either the Title, Album, Artist, Year, Composer, or Genre");
 								songchange = reader.next();
 								
-								if(songchange.equals("Name")) {
-									System.out.println("What will the new song's name be?");
+								if(songchange.equalsIgnoreCase("Title")) {
+									System.out.println("What will the new song's Title be?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
 										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
@@ -499,9 +556,9 @@ private String current;
 												playable = false;
 										}
 									}
-									System.out.println("The name has been changed to " + songchange + ".");
+									System.out.println("The song Title has been changed to " + songchange + ".");
 								}
-								else if(songchange.equals("Album")) {
+								else if(songchange.equalsIgnoreCase("Album")) {
 									System.out.println("What will the new song's album be?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
@@ -512,7 +569,7 @@ private String current;
 									}
 									System.out.println("The album title has been changed to " + songchange + ".");
 								}
-								else if(songchange.equals("Artist")) {
+								else if(songchange.equalsIgnoreCase("Artist")) {
 									System.out.println("Who will be the new song's artist?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
@@ -523,7 +580,7 @@ private String current;
 									}
 									System.out.println("The artist has been changed to " + songchange + ".");
 								}
-								else if(songchange.equals("Year")) {
+								else if(songchange.equalsIgnoreCase("Year")) {
 									System.out.println("What will be the new song's year?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
@@ -534,7 +591,7 @@ private String current;
 									}
 									System.out.println("The year has been changed to " + songchange + ".");
 								}
-								else if(songchange.equals("Composer")) {
+								else if(songchange.equalsIgnoreCase("Composer")) {
 									System.out.println("Who will be the new song's composer?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
@@ -545,7 +602,7 @@ private String current;
 									}
 									System.out.println("The composer has been changed to " + songchange + ".");
 								}
-								else if(songchange.equals("Genre")) {
+								else if(songchange.equalsIgnoreCase("Genre")) {
 									System.out.println("What will be the new song's genre?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
@@ -647,7 +704,14 @@ private String current;
 									}
 								}
 								String songreq = reader.next();
-								int songr = Integer.parseInt(songreq);
+								int songr=0;
+								try{
+								songr = Integer.parseInt(songreq);
+								}
+								catch (NumberFormatException e){
+									System.out.println("Invald input. Please enter a correct number.");
+									break;
+								}
 								System.out.println();
 								boolean input = true;
 								if(songr < 1) {
@@ -667,7 +731,7 @@ private String current;
 								if(input == true){
 									for(int i = 0; i < UM.getUsers().size(); i++) {
 										if(UM.getUsers().get(i).getUsername().equals(songrequest)) {
-											for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
+											for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size();j++) {
 												SongRequest newrequest = new SongRequest(sender, receiver, "You have a new song request for the song " + UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).getName() + " from " + current, "b", UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).getName());
 												UM.getUsers().get(i).addMessage(newrequest);
 												System.out.println("Your request has been sent.");
@@ -698,19 +762,41 @@ private String current;
 									System.out.println("That user is not on your friends list.\n");
 									break;
 								}
+							LinkedList<Song> temp= new LinkedList<Song>();
+							int usernum=0;
 							System.out.println("Here is the list of your friend's songs.\nPlease enter the number of the song you would like to take back.\n");
-							int jk = 0;
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(friend)) {
-									
+									usernum=i;
 									for(int jx = 0; jx < UM.getUsers().get(i).playableLibrary.getSongs().size(); jx++) {
-										System.out.println(jk+1 + ": " + UM.getUsers().get(i).playableLibrary.getSongs().get(jx));
-										jk++;
+										if(UM.getUsers().get(i).playableLibrary.getSongs().get(jx).getOwner().equals(current)){
+											temp.add(UM.getUsers().get(i).playableLibrary.getSongs().get(jx));
+										}
+									}
+										for(int jx = 0; jx < temp.size(); jx++) {
+										System.out.println(jx+1 + ": " + temp.get(jx));
 									}	
+									
+									
 								}
 							}
 							String songrequest = reader.next();
-							int songr = Integer.parseInt(songrequest);
+							int songr=0;
+							try{
+							songr = Integer.parseInt(songrequest);
+							}
+							catch (NumberFormatException e){
+								System.out.println("Invald input. Please enter a correct number.");
+								break;
+								
+							}
+							for(int jx = 0; jx < UM.getUsers().get(usernum).playableLibrary.getSongs().size(); jx++) {
+								if(temp.get(songr-1).getName().equals(UM.getUsers().get(usernum).playableLibrary.getSongs().get(jx).getName())
+										&&UM.getUsers().get(usernum).playableLibrary.getSongs().get(jx).getOwner().equals(current)){
+									songr=jx;
+								}
+							}
+							
 							boolean owned = false;
 							Song songtoadd = null;
 							boolean input = true;
@@ -733,8 +819,8 @@ private String current;
 							if(input == true) {
 							for(int ix = 0; ix < UM.getUsers().size(); ix++) {
 								if(UM.getUsers().get(ix).getUsername().equals(friend)) {
-									if(UM.getUsers().get(ix).playableLibrary.getSongs().get(songr-1).owner.equals(current)) {
-										songtoadd = UM.getUsers().get(ix).playableLibrary.getSongs().get(songr-1);
+									if(UM.getUsers().get(ix).playableLibrary.getSongs().get(songr).owner.equals(current)) {
+										songtoadd = UM.getUsers().get(ix).playableLibrary.getSongs().get(songr);
 										owned = true;
 									}
 								}
@@ -744,6 +830,14 @@ private String current;
 								if(UM.getUsers().get(i).getUsername().equals(current) && songtoadd != null) {
 									UM.getUsers().get(i).playableLibrary.getSongs().add(songtoadd);
 									System.out.println("Your song " + songtoadd.name + " has been returned to you.");
+									for(int j=0;j<UM.getUsers().get(i).getOwnedLibrary().size();j++){
+										OwnedSong ownedsong=(OwnedSong)UM.getUsers().get(i).getOwnedLibrary().get(j);
+										if(ownedsong.getName().equals(songtoadd.name)
+												&&ownedsong.getIsLent()==true){
+											ownedsong.setIsLent(false);
+											UM.getUsers().get(i).getOwnedLibrary().set(i,ownedsong);
+										}
+									}
 								}
 								else if(UM.getUsers().get(i).getUsername().equals(friend)) {
 									UM.getUsers().get(i).playableLibrary.getSongs().remove(songtoadd);
@@ -780,17 +874,16 @@ private String current;
 				b = reader.next();
 				switch (b) {
 						case "1": {
-							System.out.println("Hello " + current + " how would you like to sort your Library?\nYou can sort by Title, Artist, Year, Album, Or Genre.\nPlease Enter one of the options to sort the song by.");
+							System.out.println("Hello " + current + " how would you like to sort your Library?\nYou can sort by Artist, Song Title, Song Year, Song Album, Or the Genre.\nPlease Enter one of the options to sort the song by.");
 							String so = reader.next();
 							so = so.toLowerCase();
 							Sort _sort;
-							if(so.equalsIgnoreCase("artist") || so.equalsIgnoreCase("year") || so.equalsIgnoreCase("composer") || so.equalsIgnoreCase("title") || so.equalsIgnoreCase("album") || so.equalsIgnoreCase("genre")){
+							if(so.equalsIgnoreCase("artist") || so.equalsIgnoreCase("year") || so.equalsIgnoreCase("composer") || so.equalsIgnoreCase("title") || so.equalsIgnoreCase("album")){
 								_sort = Sort.valueOf(so);
 								UM.getOwnedLib().setSortBy(_sort);
 								UM.getPlayableLib().setSortBy(_sort);
 								UM.getPlayableLib().sortLib();
 								UM.getOwnedLib().sortLib();
-								System.out.println("You are now sorting by " + so + ".\n");
 							}
 							else{
 								System.out.println("\"" + so + "\" was not a valid option to sort by.");
@@ -842,14 +935,14 @@ private String current;
 								}
 							}
 							if(curr.getBorrowtime()==-1) {
-								System.out.println("Would you like to change your borrow length?\nCurrently your borrow length is "+ curr.getPlayamount()+ " plays.\nPlease answer yes or no.");	
+								System.out.println("Would you like to change your borrow length?\nCurrently your borrow length is "+ curr.getPlayamount()+ " plays.\nPlease answer yes or no.\n");	
 								}
 							else{
-								System.out.println("Would you like to change your borrow length?\nCurrently your borrow length is "+ curr.getBorrowtime()+ " minutes.\nPlease answer yes or no.");
+								System.out.println("Would you like to change your borrow length?\nCurrently your borrow length is"+ curr.getBorrowtime()+ " minutes.\nPlease answer yes or no.\n");
 							}
 							String option = reader.next();
 							if(option.equals("yes")){
-								System.out.println("You can either lend by Plays or Minutes.\nPlease enter minutes or plays.");
+								System.out.println("You can either lend for plays or minutes, please enter minutes or plays to change borrow length.");
 								option = reader.next();
 								if(option.equals("plays")){
 									System.out.println("Please enter the number of plays you want to lend a song out for.");
@@ -935,7 +1028,7 @@ private String current;
 							if(flag == true) {
 								break;
 							}
-							System.out.println("Hello " + current + " here are your messages.\n");
+							System.out.println("Hello " + current + " here are your messages.");
 						for(int i = 0; i < UM.getUsers().size(); i++) {
 							if(UM.getUsers().get(i).getUsername().equals(current) && UM.getUsers().get(i).getMessages().size() != 0) {
 									System.out.println(UM.getUsers().get(i).getFirstMessage());
@@ -959,10 +1052,27 @@ private String current;
 											System.out.println("You have accepted a request for one of your songs from " + UM.getUsers().get(i).getFirstMessage().sender.getUsername());
 											String songname = UM.getUsers().get(i).getFirstMessage().songname;
 											Song so = null;
+											BorrowedSong so1=null;
 											//Remove song from playable library of current user.
+											for(int ix = 0; ix < UM.getUsers().get(i).ownedLibrary.getSongs().size(); ix++) {
+												if(UM.getUsers().get(i).ownedLibrary.getSongs().get(ix).name.equals(songname)) {
+													OwnedSong temp=(OwnedSong)UM.getUsers().get(i).ownedLibrary.getSongs().get(ix);
+													if(temp.getIsLent()==false){
+														temp.setIsLent(true);
+														UM.getUsers().get(i).getOwnedLibrary().set(ix,temp);	
+													}
+												}
+											}
 											for(int ix = 0; ix < UM.getUsers().get(i).playableLibrary.getSongs().size(); ix++) {
-												if(UM.getUsers().get(i).playableLibrary.getSongs().get(ix).name.equals(songname)) {
+												if(UM.getUsers().get(i).playableLibrary.getSongs().get(ix).name.equals(songname)&&UM.getUsers().get(i).playableLibrary.getSongs().get(ix).getOwner().equals(current)) {
 													so = UM.getUsers().get(i).playableLibrary.getSongs().get(ix);
+													if(UM.getUsers().get(i).getBorrowtime()==-1){
+														so1= new BorrowedSong(so.getName(),so.getArtist(),so.getAlbum(),so.getYear(),so.getComposer(),so.getGenre(),UM.getUsers().get(i).getPlayamount(),sender,current);
+													}
+													else{
+														so1= new BorrowedSong(so.getName(),so.getArtist(),so.getAlbum(),so.getYear(),so.getComposer(),so.getGenre(),UM.getUsers().get(i).getBorrowtime(),sender,current);
+													}
+													
 													UM.getUsers().get(i).playableLibrary.getSongs().remove(ix);
 													System.out.println("Your song " + songname + " is no longer playable for you.");
 													
@@ -971,7 +1081,7 @@ private String current;
 											//Find friend and add song to playable library
 											for(int ix = 0; ix < UM.getUsers().size(); ix++) {
 												if(UM.getUsers().get(ix).getUsername().equals(sender)) {
-													UM.getUsers().get(ix).playableLibrary.getSongs().add(so);
+													UM.getUsers().get(ix).playableLibrary.getSongs().add(so1);
 												}
 											}
 										}
@@ -980,15 +1090,15 @@ private String current;
 									
 									}
 									else if(request.equals("no") && UM.getUsers().get(i).getFirstMessage().type.equals("f")) {
-										System.out.println("The user " + UM.getUsers().get(i).getFirstMessage().sender + " has not been added to your friends list.");
+										System.out.println("The user " + UM.getUsers().get(i).getFirstMessage().sender.getUsername() + " has not been added to your friends list.");
 										break;
 									}
 									else if(request.equals("no") && UM.getUsers().get(i).getFirstMessage().type.equals("b")) {
-										System.out.println("You have rejected an attempt to borrow your song titled " + UM.getUsers().get(i).getFirstMessage().songname + " from user " + UM.getUsers().get(i).getFirstMessage().sender + ".");
+										System.out.println("You have rejected an attempt to borrow your song titled " + UM.getUsers().get(i).getFirstMessage().songname + " from user " + UM.getUsers().get(i).getFirstMessage().sender.getUsername() + ".");
 										break;
 									}
 									else {
-										System.out.println("Please enter a valid response. Please enter yes or no.");
+										System.out.println("Please enter a valid response. The responses are yes or no.");
 									}
 							}
 							}
@@ -1136,7 +1246,7 @@ private String current;
 								}
 								
 							}
-							System.out.println("");
+							System.out.println();
 							//search by all friends
 							break;
 						}
@@ -1277,7 +1387,6 @@ private String current;
 								newuser.setPlayamount(3);
 
 								UM.addUser(newuser);
-;
 								break;
 							}
 							case "4": {
