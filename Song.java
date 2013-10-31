@@ -38,6 +38,10 @@ public class Song {
 	public String toString() {
 		return "[" + name + "," + artist + "," + album + "," + year + "," + composer + "," + genre + "]";
 	}
+	public boolean play(){
+		System.out.println("You are currently playing the song titled: " +this.getName()+ '\n');
+		return true;
+	}
 	public void setName(String n) {
 		this.name = n;
 	}
