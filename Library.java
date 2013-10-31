@@ -9,7 +9,7 @@ public class Library {
 	private Sort sortedBy;
 
 	public Library(){
-
+		sortedBy = Sort.valueOf("artist");
 	}
 	public Library(User s, LinkedList<Song> lib) {
 		Owner = s;
