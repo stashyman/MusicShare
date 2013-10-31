@@ -22,6 +22,9 @@ Q. Can you add a borrowed song to a playlist?
 A. You can only put owned songs into a playlist.
 Q. What happens if you try to play a song from a playlist that is being borrowed.
 A. You are told that the song is being lent, and it is not played.
-
+Q. How will users answer their messages?
+A. Users will answer one message at a time from the UI.
+Q. Can a user try to take back a song from someone who has not logged in at least once?
+A. No, a user can only try to take back a borrowed song from someone who has logged on at least one time. When the program is killed, all songs go back to their original owner.
 
 
