@@ -1,17 +1,27 @@
 Assumptions:
 
 Q. How will the user list be read into the system?
-A. A file named test.txt will be read into the run configurations in the Eclipse menu.
+A. A file name will be read as the only command on the command line.
 Q. How will users be read into a file? 
-A. The users will be read in in the following format: USERNAME, PASSWORD [Songs Owned](Friends)
+A. The users will be read in in the following format: USERNAME, PASSWORD [Songs Owned](Friend1,friend2) no spaces are allowed between friends
 Q. How will users be differentiated in the file?
 A. A single user's information will be all read in on one line. Each new user will be read in on a line right below the previous user, without a newline separating the two users.
 Q. What if one user has a user on their friends list and the other user does not?
 A. All friend relationships and mutual. If one user has a friend then the other will also have that friend.
 Q. Will duplicate entries be allowed?
-A. Duplicate usernames will be removed but duplicate songs are allowed.
+A. Duplicate usernames are not allowed duplicate songs are allowed.
 Q. What will happen when a user has not responded to friend and song requests but has logged out of the system?
 A. All requests will remain until the user answers them or the program is killed.
 Q. How will the system deal with interacting with users that are not logged in?
 A. Both users must be logged into the system to deal with each other. However, a User can take back a song that was lent out at any time.
+Q. Can you edit or delete a song when it is being lent out?
+A. No, you must take back the song before you can attempt to edit or delete it.
+Q. What happens when you try to borrow a song that is already being borrowed.
+A. You are told that the song is being borrowed, and to try again later.
+Q. Can you add a borrowed song to a playlist?
+A. You can only put owned songs into a playlist.
+Q. What happens if you try to play a song from a playlist that is being borrowed.
+A. You are told that the song is being lent, and it is not played.
+
+
 
