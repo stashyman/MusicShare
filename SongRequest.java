@@ -7,7 +7,7 @@ public class SongRequest extends Message{
 	}
 	//add the song to the borrowed library
 	public boolean Accepted(Song e) {
-		recipiant.playableLibrary.getSongs().add(e);
+		recipiant.getPlayableLib().getSongs().add(e);
 		return true;
 	}
 	public boolean Denied() {
