@@ -14,6 +14,7 @@ public class Library {
 	public Library(User s, LinkedList<Song> lib) {
 		Owner = s;
 		Library = lib;
+		sortedBy = Sort.valueOf("artist");
 	}
 	public User getOwner() {
 		return Owner;
