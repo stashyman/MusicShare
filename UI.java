@@ -1239,8 +1239,8 @@ private String current;
 										System.out.println();
 										System.out.println("Here is library for your friend " + friend + ".");
 										System.out.println();
-										for(int jx = 0; jx < UM.getUsers().get(ix).playableLibrary.getSongs().size(); jx++) {
-											System.out.println(jx +1 + ": " + UM.getUsers().get(ix).playableLibrary.getSongs().get(jx));
+										for(int jx = 0; jx < UM.getUsers().get(ix).ownedLibrary.getSongs().size(); jx++) {
+											System.out.println(jx +1 + ": " + UM.getUsers().get(ix).ownedLibrary.getSongs().get(jx));
 										}
 									}
 								}
