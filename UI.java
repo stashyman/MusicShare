@@ -136,8 +136,8 @@ private String current;
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(current)) {
 										System.out.println("Hello " + current + ", here is the list of songs you can play.\n");
-										for(int j = 0; j < UM.getUsers().get(i).playableLibrary.getSongs().size(); j++) {
-											System.out.println(j+1 + ": " + UM.getUsers().get(i).playableLibrary.getSongs().get(j));
+										for(int j = 0; j < UM.getUsers().get(i).getPlayableLib().getSongs().size(); j++) {
+											System.out.println(j+1 + ": " + UM.getUsers().get(i).getPlayableLib().getSongs().get(j));
 										}
 										System.out.println("\nType the number of the song you would like to listen to: ");
 									}
@@ -156,7 +156,7 @@ private String current;
 								}
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(current)) {
-										if(songr > UM.getUsers().get(i).playableLibrary.getSongs().size()) {
+										if(songr > UM.getUsers().get(i).getPlayableLib().getSongs().size()) {
 											break;
 										}
 									}
@@ -165,33 +165,33 @@ private String current;
 								//if this is false we need to return;
 								boolean keepsong=true;
 								for(int i = 0; i < UM.getUsers().size(); i++) {
-									if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).playableLibrary.getSongs().size()) {
+									if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).getPlayableLib().getSongs().size()) {
 										
-											//System.out.println("You are currently playing the song titled: " + UM.getUsers().get(i).playableLibrary.getSongs().get(songr-1).getName() + "\n");
-										keepsong=UM.getUsers().get(i).playableLibrary.getSongs().get(songr-1).play();
+											//System.out.println("You are currently playing the song titled: " + UM.getUsers().get(i).getPlayableLib().getSongs().get(songr-1).getName() + "\n");
+										keepsong=UM.getUsers().get(i).getPlayableLib().getSongs().get(songr-1).play();
 										if(keepsong==false){
-											BorrowedSong temp=(BorrowedSong) UM.getUsers().get(i).playableLibrary.getSongs().get(songr-1);
+											BorrowedSong temp=(BorrowedSong) UM.getUsers().get(i).getPlayableLib().getSongs().get(songr-1);
 											String owner=temp.getOwner();
 											String borrower=current;
 											Song songtoadd=new Song(temp.getName(),temp.getArtist(),temp.getAlbum(),temp.getYear(),temp.getComposer(),temp.getGenre(),owner);
 											for(int ix = 0; ix < UM.getUsers().size(); ix++) {
 												if(UM.getUsers().get(ix).getUsername().equals(owner) && songtoadd != null) {
-													UM.getUsers().get(ix).playableLibrary.getSongs().add(songtoadd);
-													for(int j=0;j<UM.getUsers().get(ix).getOwnedLibrary().size();j++){
-														OwnedSong ownedsong=(OwnedSong)UM.getUsers().get(ix).getOwnedLibrary().get(j);
+													UM.getUsers().get(ix).getPlayableLib().getSongs().add(songtoadd);
+													for(int j=0;j<UM.getUsers().get(ix).getOwnedLib().getSongs().size();j++){
+														OwnedSong ownedsong=(OwnedSong)UM.getUsers().get(ix).getOwnedLib().getSongs().get(j);
 														if(ownedsong.getName().equals(songtoadd.name)
 																&&ownedsong.getIsLent()==true){
 															ownedsong.setIsLent(false);
-															UM.getUsers().get(ix).getOwnedLibrary().set(j,ownedsong);
+															UM.getUsers().get(ix).getOwnedLib().getSongs().set(j,ownedsong);
 															
 														}
 													}
 												}
 												else if(UM.getUsers().get(ix).getUsername().equals(borrower)) {
-													for(int j=0;j<UM.getUsers().get(ix).playableLibrary.getSongs().size();j++){
-														if(UM.getUsers().get(ix).playableLibrary.getSongs().get(j).getName().equals(temp.getName())
-																&&UM.getUsers().get(ix).playableLibrary.getSongs().get(j).getOwner().equals(owner)){
-															UM.getUsers().get(ix).playableLibrary.getSongs().remove(j);
+													for(int j=0;j<UM.getUsers().get(ix).getPlayableLib().getSongs().size();j++){
+														if(UM.getUsers().get(ix).getPlayableLib().getSongs().get(j).getName().equals(temp.getName())
+																&&UM.getUsers().get(ix).getPlayableLib().getSongs().get(j).getOwner().equals(owner)){
+															UM.getUsers().get(ix).getPlayableLib().getSongs().remove(j);
 														}
 															
 													}
@@ -315,8 +315,8 @@ private String current;
 							boolean input = true;
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
-									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
-										System.out.println(jx + 1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
+									for(int j = 0; j < UM.getUsers().get(i).getOwnedLib().getSongs().size(); j++) {
+										System.out.println(jx + 1 + ": " + UM.getUsers().get(i).getOwnedLib().getSongs().get(j));
 										jx++;
 									}
 								}
@@ -334,7 +334,7 @@ private String current;
 							}
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
-									if(songr > UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
+									if(songr > UM.getUsers().get(i).getOwnedLib().getSongs().size()) {
 										input = false;
 										System.out.println("Invalid input. Please enter one of the numbers above.");
 										break;
@@ -346,8 +346,8 @@ private String current;
 								break;
 							}
 							for(int i = 0; i < UM.getUsers().size(); i++) {
-								if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
-									OwnedSong temp=(OwnedSong)UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1);
+								if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).getOwnedLib().getSongs().size()) {
+									OwnedSong temp=(OwnedSong)UM.getUsers().get(i).getOwnedLib().getSongs().get(songr-1);
 									if(temp.getIsLent()==true){
 										System.out.println("The song "+ temp.getName()+ " is being lent out right now, please get it back before you try to delete it");
 										break;
@@ -357,8 +357,8 @@ private String current;
 											UM.getUsers().get(i).getPlayableLib().getSongs().remove(j);
 										}
 									}
-									System.out.println("Your song " + UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).name + " has been removed from your library.");
-									UM.getUsers().get(i).ownedLibrary.getSongs().remove(songr-1);
+									System.out.println("Your song " + UM.getUsers().get(i).getOwnedLib().getSongs().get(songr-1).name + " has been removed from your library.");
+									UM.getUsers().get(i).getOwnedLib().getSongs().remove(songr-1);
 								}
 							}
 							break;
@@ -371,8 +371,8 @@ private String current;
  									usernum=i;
  									System.out.println("Hello " + current + " this is the list of songs you can add to your playlist. Type the number of the song you would like to add to a playlist.");
  									System.out.println("You can also type multiple numbers followed by a space to add multiple songs. ex.\"1 3 5\" would add songs 1, 3, and 5");
- 									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
- 										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
+ 									for(int j = 0; j < UM.getUsers().get(i).getOwnedLib().getSongs().size(); j++) {
+ 										System.out.println(j+1 + ": " + UM.getUsers().get(i).getOwnedLib().getSongs().get(j));
  									}
  								}
  							}
@@ -387,9 +387,9 @@ private String current;
  							for(int i=0;i<temptoken.length;i++){
  								try{
  								int temp=Integer.parseInt(temptoken[i]);
- 								int size=UM.getUsers().get(usernum).getOwnedLibrary().size();
+ 								int size=UM.getUsers().get(usernum).getOwnedLib().getSongs().size();
  								if(temp<size&&temp>0){
- 									playlist.add((OwnedSong) UM.getUsers().get(usernum).getOwnedLibrary().get(temp-1));
+ 									playlist.add((OwnedSong) UM.getUsers().get(usernum).getOwnedLib().getSongs().get(temp-1));
  								}
  									
  								
@@ -449,13 +449,13 @@ private String current;
                                      if(as1.equals("add")){
                                     	 int temp2=0;
                                     	 System.out.println("This is the list of songs you can add to your playlist. Type the number of the song you would like to add to the playlist.");
-                                    	 for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
-      										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
+                                    	 for(int j = 0; j < UM.getUsers().get(i).getOwnedLib().getSongs().size(); j++) {
+      										System.out.println(j+1 + ": " + UM.getUsers().get(i).getOwnedLib().getSongs().get(j));
       									}
                                     	 String as2=lineScan.next();
                                     	 try{
                                     	temp2=Integer.parseInt(as2);
-           								int size=UM.getUsers().get(usernum).getOwnedLibrary().size();
+           								int size=UM.getUsers().get(usernum).getOwnedLib().getSongs().size();
            								if(temp2>size||temp2<0){
            									System.out.println(as2+" was not a vaild number.");
            									break;
@@ -465,8 +465,8 @@ private String current;
                                     		 System.out.println(as2+" was not a vaild number.");
            									break;
                                     	 }
-                                    	 UM.getUsers().get(usernum).getPlaylist().get(temp-1).addsong((OwnedSong) UM.getUsers().get(i).ownedLibrary.getSongs().get(temp2-1));
-                                    	 System.out.println("The song titled "+ UM.getUsers().get(i).ownedLibrary.getSongs().get(temp2-1).getName() + " was added to playlist " +temp+ '\n');
+                                    	 UM.getUsers().get(usernum).getPlaylist().get(temp-1).addsong((OwnedSong) UM.getUsers().get(i).getOwnedLib().getSongs().get(temp2-1));
+                                    	 System.out.println("The song titled "+ UM.getUsers().get(i).getOwnedLib().getSongs().get(temp2-1).getName() + " was added to playlist " +temp+ '\n');
                                     	 break;
                                      }
                                      
@@ -511,8 +511,8 @@ private String current;
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
 									System.out.println("Hello " + current + " this is the list of songs you can edit. Type the number of the song you would like to edit.");
-									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
-										System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j)+ '\n');
+									for(int j = 0; j < UM.getUsers().get(i).getOwnedLib().getSongs().size(); j++) {
+										System.out.println(j+1 + ": " + UM.getUsers().get(i).getOwnedLib().getSongs().get(j)+ '\n');
 									}
 								}
 							}
@@ -533,7 +533,7 @@ private String current;
 							}
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
-									if(songr > UM.getUsers().get(i).playableLibrary.getSongs().size()) {
+									if(songr > UM.getUsers().get(i).getPlayableLib().getSongs().size()) {
 										System.out.println("Invald input. Please enter a correct number.");
 										break;
 									}
@@ -541,7 +541,7 @@ private String current;
 							}
 							System.out.println();
 							for(int i = 0; i < UM.getUsers().size(); i++) {
-								if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
+								if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).getOwnedLib().getSongs().size()) {
 										playable = true;
 								}
 							}
@@ -554,8 +554,8 @@ private String current;
 									System.out.println("What will the new song's Title be?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
-										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
-											    UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).setName(songchange);
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).getOwnedLib().getSongs().size()) {
+											    UM.getUsers().get(i).getOwnedLib().getSongs().get(songr-1).setName(songchange);
 												playable = false;
 										}
 									}
@@ -565,8 +565,8 @@ private String current;
 									System.out.println("What will the new song's album be?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
-										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
-											UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).setAlbum(songchange);
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).getOwnedLib().getSongs().size()) {
+											UM.getUsers().get(i).getOwnedLib().getSongs().get(songr-1).setAlbum(songchange);
 											playable = false;
 										}
 									}
@@ -576,8 +576,8 @@ private String current;
 									System.out.println("Who will be the new song's artist?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
-										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
-											UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).setArtist(songchange);
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).getOwnedLib().getSongs().size()) {
+											UM.getUsers().get(i).getOwnedLib().getSongs().get(songr-1).setArtist(songchange);
 											playable = false;
 										}
 									}
@@ -587,8 +587,8 @@ private String current;
 									System.out.println("What will be the new song's year?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
-										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
-											    UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).setYear(songchange);
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).getOwnedLib().getSongs().size()) {
+											    UM.getUsers().get(i).getOwnedLib().getSongs().get(songr-1).setYear(songchange);
 												playable = false;
 										}
 									}
@@ -598,8 +598,8 @@ private String current;
 									System.out.println("Who will be the new song's composer?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
-										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
-											UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).setComposer(songchange);
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).getOwnedLib().getSongs().size()) {
+											UM.getUsers().get(i).getOwnedLib().getSongs().get(songr-1).setComposer(songchange);
 											playable = false;
 										}
 									}
@@ -609,8 +609,8 @@ private String current;
 									System.out.println("What will be the new song's genre?");
 									songchange = reader.next();
 									for(int i = 0; i < UM.getUsers().size(); i++) {
-										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).ownedLibrary.getSongs().size()) {
-											UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).setGenre(songchange);
+										if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).getOwnedLib().getSongs().size()) {
+											UM.getUsers().get(i).getOwnedLib().getSongs().get(songr-1).setGenre(songchange);
 											playable = false;
 										}
 									}
@@ -701,8 +701,8 @@ private String current;
 								System.out.println("Here is a list of the songs your friend has available for playing.\nSelect the number that you want to request to borrow.");
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(songrequest)) {
-										for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
-											System.out.println(j+1 + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
+										for(int j = 0; j < UM.getUsers().get(i).getOwnedLib().getSongs().size(); j++) {
+											System.out.println(j+1 + ": " + UM.getUsers().get(i).getOwnedLib().getSongs().get(j));
 										}
 									}
 								}
@@ -724,7 +724,7 @@ private String current;
 								}
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(songrequest)) {
-										if(songr > UM.getUsers().get(i).playableLibrary.getSongs().size()) {
+										if(songr > UM.getUsers().get(i).getPlayableLib().getSongs().size()) {
 											System.out.println("Invald input. Please enter a correct number.");
 											input = false;
 											break;
@@ -735,8 +735,8 @@ private String current;
 									for(int i = 0; i < UM.getUsers().size(); i++) {
 										if(UM.getUsers().get(i).getUsername().equals(songrequest)) {
 											//DO WE NEED THIS FOR LOOP? j IS NEVER USED AND IT ONLY GOES THROUGH ONCE!!
-											for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size();j++) {
-												SongRequest newrequest = new SongRequest(sender, receiver, "You have a new song request for the song " + UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).getName() + " from " + current, "b", UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).getName());
+											for(int j = 0; j < UM.getUsers().get(i).getOwnedLib().getSongs().size();j++) {
+												SongRequest newrequest = new SongRequest(sender, receiver, "You have a new song request for the song " + UM.getUsers().get(i).getOwnedLib().getSongs().get(songr-1).getName() + " from " + current, "b", UM.getUsers().get(i).getOwnedLib().getSongs().get(songr-1).getName());
 												UM.getUsers().get(i).addMessage(newrequest);
 												System.out.println("Your request has been sent.");
 												break;
@@ -771,9 +771,9 @@ private String current;
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(friend)) {
 									usernum=i;
-									for(int jx = 0; jx < UM.getUsers().get(i).playableLibrary.getSongs().size(); jx++) {
-										if(UM.getUsers().get(i).playableLibrary.getSongs().get(jx).getOwner().equals(current)){
-											temp.add(UM.getUsers().get(i).playableLibrary.getSongs().get(jx));
+									for(int jx = 0; jx < UM.getUsers().get(i).getPlayableLib().getSongs().size(); jx++) {
+										if(UM.getUsers().get(i).getPlayableLib().getSongs().get(jx).getOwner().equals(current)){
+											temp.add(UM.getUsers().get(i).getPlayableLib().getSongs().get(jx));
 										}
 									}
 										for(int jx = 0; jx < temp.size(); jx++) {
@@ -793,9 +793,9 @@ private String current;
 								break;
 								
 							}
-							for(int jx = 0; jx < UM.getUsers().get(usernum).playableLibrary.getSongs().size(); jx++) {
-								if(temp.get(songr-1).getName().equals(UM.getUsers().get(usernum).playableLibrary.getSongs().get(jx).getName())
-										&&UM.getUsers().get(usernum).playableLibrary.getSongs().get(jx).getOwner().equals(current)){
+							for(int jx = 0; jx < UM.getUsers().get(usernum).getPlayableLib().getSongs().size(); jx++) {
+								if(temp.get(songr-1).getName().equals(UM.getUsers().get(usernum).getPlayableLib().getSongs().get(jx).getName())
+										&&UM.getUsers().get(usernum).getPlayableLib().getSongs().get(jx).getOwner().equals(current)){
 									songr=jx;
 								}
 							}
@@ -810,7 +810,7 @@ private String current;
 							}
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(friend)) {
-									if(songr > UM.getUsers().get(i).playableLibrary.getSongs().size()) {
+									if(songr > UM.getUsers().get(i).getPlayableLib().getSongs().size()) {
 										System.out.println("Invald input. Please enter a correct number.\n");
 										input = false;
 										owned = true;
@@ -822,8 +822,8 @@ private String current;
 							if(input == true) {
 							for(int ix = 0; ix < UM.getUsers().size(); ix++) {
 								if(UM.getUsers().get(ix).getUsername().equals(friend)) {
-									if(UM.getUsers().get(ix).playableLibrary.getSongs().get(songr).owner.equals(current)) {
-										songtoadd = UM.getUsers().get(ix).playableLibrary.getSongs().get(songr);
+									if(UM.getUsers().get(ix).getPlayableLib().getSongs().get(songr).owner.equals(current)) {
+										songtoadd = UM.getUsers().get(ix).getPlayableLib().getSongs().get(songr);
 										owned = true;
 									}
 								}
@@ -831,19 +831,19 @@ private String current;
 							
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current) && songtoadd != null) {
-									UM.getUsers().get(i).playableLibrary.getSongs().add(songtoadd);
+									UM.getUsers().get(i).getPlayableLib().getSongs().add(songtoadd);
 									System.out.println("Your song " + songtoadd.name + " has been returned to you.");
-									for(int j=0;j<UM.getUsers().get(i).getOwnedLibrary().size();j++){
-										OwnedSong ownedsong=(OwnedSong)UM.getUsers().get(i).getOwnedLibrary().get(j);
+									for(int j=0;j<UM.getUsers().get(i).getOwnedLib().getSongs().size();j++){
+										OwnedSong ownedsong=(OwnedSong)UM.getUsers().get(i).getOwnedLib().getSongs().get(j);
 										if(ownedsong.getName().equals(songtoadd.name)
 												&&ownedsong.getIsLent()==true){
 											ownedsong.setIsLent(false);
-											UM.getUsers().get(i).getOwnedLibrary().set(i,ownedsong);
+											UM.getUsers().get(i).getOwnedLib().getSongs().set(i,ownedsong);
 										}
 									}
 								}
 								else if(UM.getUsers().get(i).getUsername().equals(friend)) {
-									UM.getUsers().get(i).playableLibrary.getSongs().remove(songtoadd);
+									UM.getUsers().get(i).getPlayableLib().getSongs().remove(songtoadd);
 								}
 							}
 							}
@@ -1057,18 +1057,18 @@ private String current;
 											Song so = null;
 											BorrowedSong so1=null;
 											//Remove song from playable library of current user.
-											for(int ix = 0; ix < UM.getUsers().get(i).ownedLibrary.getSongs().size(); ix++) {
-												if(UM.getUsers().get(i).ownedLibrary.getSongs().get(ix).name.equals(songname)) {
-													OwnedSong temp=(OwnedSong)UM.getUsers().get(i).ownedLibrary.getSongs().get(ix);
+											for(int ix = 0; ix < UM.getUsers().get(i).getOwnedLib().getSongs().size(); ix++) {
+												if(UM.getUsers().get(i).getOwnedLib().getSongs().get(ix).name.equals(songname)) {
+													OwnedSong temp=(OwnedSong)UM.getUsers().get(i).getOwnedLib().getSongs().get(ix);
 													if(temp.getIsLent()==false){
 														temp.setIsLent(true);
-														UM.getUsers().get(i).getOwnedLibrary().set(ix,temp);	
+														UM.getUsers().get(i).getOwnedLib().getSongs().set(ix,temp);	
 													}
 												}
 											}
-											for(int ix = 0; ix < UM.getUsers().get(i).playableLibrary.getSongs().size(); ix++) {
-												if(UM.getUsers().get(i).playableLibrary.getSongs().get(ix).name.equals(songname)&&UM.getUsers().get(i).playableLibrary.getSongs().get(ix).getOwner().equals(current)) {
-													so = UM.getUsers().get(i).playableLibrary.getSongs().get(ix);
+											for(int ix = 0; ix < UM.getUsers().get(i).getPlayableLib().getSongs().size(); ix++) {
+												if(UM.getUsers().get(i).getPlayableLib().getSongs().get(ix).name.equals(songname)&&UM.getUsers().get(i).getPlayableLib().getSongs().get(ix).getOwner().equals(current)) {
+													so = UM.getUsers().get(i).getPlayableLib().getSongs().get(ix);
 													if(UM.getUsers().get(i).getBorrowtime()==-1){
 														so1= new BorrowedSong(so.getName(),so.getArtist(),so.getAlbum(),so.getYear(),so.getComposer(),so.getGenre(),UM.getUsers().get(i).getPlayamount(),sender,current);
 													}
@@ -1076,7 +1076,7 @@ private String current;
 														so1= new BorrowedSong(so.getName(),so.getArtist(),so.getAlbum(),so.getYear(),so.getComposer(),so.getGenre(),UM.getUsers().get(i).getBorrowtime(),sender,current);
 													}
 													
-													UM.getUsers().get(i).playableLibrary.getSongs().remove(ix);
+													UM.getUsers().get(i).getPlayableLib().getSongs().remove(ix);
 													System.out.println("Your song " + songname + " is no longer playable for you.");
 													
 												}
@@ -1084,7 +1084,7 @@ private String current;
 											//Find friend and add song to playable library
 											for(int ix = 0; ix < UM.getUsers().size(); ix++) {
 												if(UM.getUsers().get(ix).getUsername().equals(sender)) {
-													UM.getUsers().get(ix).playableLibrary.getSongs().add(so1);
+													UM.getUsers().get(ix).getPlayableLib().getSongs().add(so1);
 												}
 											}
 										}
@@ -1223,8 +1223,8 @@ private String current;
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(username)) {
 									System.out.println("Here is " + UM.getUsers().get(i).getUsername() + "'s library.\n");
-									for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size(); j++) {
-									System.out.println(k + ": " + UM.getUsers().get(i).ownedLibrary.getSongs().get(j));
+									for(int j = 0; j < UM.getUsers().get(i).getOwnedLib().getSongs().size(); j++) {
+									System.out.println(k + ": " + UM.getUsers().get(i).getOwnedLib().getSongs().get(j));
 									k++;
 									}
 								}
@@ -1247,8 +1247,8 @@ private String current;
 										System.out.println();
 										System.out.println("Here is library for your friend " + friend + ".");
 										System.out.println();
-										for(int jx = 0; jx < UM.getUsers().get(ix).ownedLibrary.getSongs().size(); jx++) {
-											System.out.println(jx +1 + ": " + UM.getUsers().get(ix).ownedLibrary.getSongs().get(jx));
+										for(int jx = 0; jx < UM.getUsers().get(ix).getOwnedLib().getSongs().size(); jx++) {
+											System.out.println(jx +1 + ": " + UM.getUsers().get(ix).getOwnedLib().getSongs().get(jx));
 										}
 									}
 								}
@@ -1293,15 +1293,15 @@ private String current;
 								User curr = UM.getUsers().get(i);
 								for(int jx = 0; jx < notfriends.size(); jx++) {
 									if(notfriends.get(jx).equals(curr.getUsername())) {
-										if(curr.visible.equals("f")) {
+										if(curr.getVisibility().equals("f")) {
 											System.out.println("User " + curr.getUsername() + " only allows their library to be seen by friends.");
 										}
-										else if(curr.visible.equals("e")) {
+										else if(curr.getVisibility().equals("e")) {
 										System.out.println();
 										System.out.println("Here are the songs for the user " + curr.getUsername() + ".");
 										kx = 0;
-										for(int xx = 0; xx < curr.ownedLibrary.getSongs().size(); xx++) {
-											System.out.println(kx+1 + ": " + curr.ownedLibrary.getSongs().get(xx));
+										for(int xx = 0; xx < curr.getOwnedLib().getSongs().size(); xx++) {
+											System.out.println(kx+1 + ": " + curr.getOwnedLib().getSongs().get(xx));
 											kx++;
 										}
 									}
