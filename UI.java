@@ -117,7 +117,7 @@ private String current;
 			System.out
 			.println("1. Listen to song or playlist\n\n2. Add/Edit playlist or song\n\n3. Borrow or take back a song\n\n"
 					+ "4. Profile settings\n\n5. Check messages or Send a friend request(s)\n\n"
-					+ "6. Browse song(s)\n\n7. Log out or Switch User\n\n8. Admin/Testing\n\nEnter one of the numbers above: \n");
+					+ "6. Browse song(s)\n\n7. Log out or Switch User\n\nEnter one of the numbers above: \n");
 			Scanner reader = new Scanner(System.in);	
 			String s;
 			s = reader.next();
@@ -1353,6 +1353,7 @@ private String current;
 					}
 				}
 			}
+			/*ADMIN TESTING BEYOND THIS POINT
 			case "8":{
 				String b = "";
 				
@@ -1417,7 +1418,7 @@ private String current;
 			}
 			
 			}
-		}
+		}*/
 		
 	}
 
