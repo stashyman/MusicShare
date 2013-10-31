@@ -1,41 +1,24 @@
-ADDING CODE TO THE UI
-=====================
-PLEASE ADD THE CODE TO THE UI2.java, because that is the one that I have done a lot of cleanup to and am testing.
+Things to do
+============
 
-I don't see the point of UI2. I took the updated code in UI2 and added upon it, then put it in UI. The borrowed song atributes are added
-and I have the default settings working also, but we never send a song back after it has been done yet.
-PLEASE REMEMBER TO DOWNLOAD THE MOST RECENT CODE WHEN YOU WANT TO WORK. I'm looking at you Brendan. --Rory
+We need to add all remaining assumtions to the assumtions.txt file
+
+Implememnt Jon's fixes that I overwrote
+
+
+
+
+
 
 Errors that have been found so far
 ==================================
 first number equals the main menu option and #) is the sub menu option
 
-(2) (1) Add a song gives an out of bounds error when adding the song with any combination-Fixed
-
-(3) (1) When requesting a song from self it displays that you can not request from self but then still shows songs and asks what song you wish to borrow.
-	    Did not want - Fixed
-   
-(3) (2) When taking back a song from a friend and they are not logged in, it still shows friends songs.
-	    Did not want - Fixed
-  
 (3) (2) When taking back a song and invalid input is given it dumps out to menu and does not allow for another song choice/
 
-(4) (2) When input invalid information then it kicks back to menu and does not ask until get either a yes or no. (This seems fine to me. -Ben)
-
-(6) (3) When selecting search all non friends it does not show me my non friends songs == fixed Rory==
 
 
 if need to contact me (Jon) just text or contact me on skype
-
-
-Problems to be addressed
-=====================
-
-1: Need to implement the borrowed songs attibutes (time, plays). 
-
-
-7. Setting a queue for a borrowed song.
-
 
 
 Issues recently fixed
@@ -67,3 +50,8 @@ they will both be added to each other's friends list.
 12. library sorting setting (changing profile setting)
 
 13. library sorting (actually sorting the songs)
+
+14. Setting a queue for a borrowed song. (decided to not make a queue and just not allow the borrow if already being lent
+
+15. Borrowing and sending back songs working properly
+
