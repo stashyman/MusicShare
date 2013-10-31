@@ -1292,8 +1292,8 @@ private String current;
 										System.out.println();
 										System.out.println("Here are the songs for the user " + curr.getUsername() + ".");
 										kx = 0;
-										for(int xx = 0; xx < curr.playableLibrary.getSongs().size(); xx++) {
-											System.out.println(kx+1 + ": " + curr.playableLibrary.getSongs().get(xx));
+										for(int xx = 0; xx < curr.ownedLibrary.getSongs().size(); xx++) {
+											System.out.println(kx+1 + ": " + curr.ownedLibrary.getSongs().get(xx));
 											kx++;
 										}
 									}
