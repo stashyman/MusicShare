@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class ClientProg {
 	public static void main(String args[]) {
-		String filename = args[1];
+		String filename = args[0];
 		File file = new File(filename);
 		String s = "";
 		//Arrays to read in data, and split the unecessary characters
