@@ -956,11 +956,14 @@ private String current;
 								}
 							}
 							//Check if the song is owned by the current user and grab it if it is
+							Song tempSong = null;
 							if(input == true) {
 							for(int ix = 0; ix < UM.getUsers().size(); ix++) {
 								if(UM.getUsers().get(ix).getUsername().equals(friend)) {
 									if(UM.getUsers().get(ix).getPlayableLib().getSongs().get(songr).owner.equals(current)) {
 										songtoadd = UM.getUsers().get(ix).getPlayableLib().getSongs().get(songr);
+										tempSong = new Song(songtoadd.getName(),songtoadd.getArtist(),songtoadd.getAlbum(),songtoadd.getYear(),songtoadd.getComposer(),songtoadd.getGenre(),current);
+										songtoadd = tempSong;
 										owned = true;
 									}
 								}
