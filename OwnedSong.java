@@ -33,4 +33,7 @@ public class OwnedSong extends Song{
 	public String peek(){
 		return queue.peekFirst();
 	}
+	public boolean getIsLent(){
+		return isLent;
+	}
 }
