@@ -1018,7 +1018,7 @@ private String current;
 							String so = reader.next();
 							so = so.toLowerCase();
 							Sort _sort;
-							if(so.equalsIgnoreCase("artist") || so.equalsIgnoreCase("year") || so.equalsIgnoreCase("composer") || so.equalsIgnoreCase("title") || so.equalsIgnoreCase("album")){
+							if(so.equalsIgnoreCase("artist") || so.equalsIgnoreCase("year") || so.equalsIgnoreCase("composer") || so.equalsIgnoreCase("title") || so.equalsIgnoreCase("album") || so.equalsIgnoreCase("genre")){
 								_sort = Sort.valueOf(so);
 								UM.getOwnedLib().setSortBy(_sort);
 								UM.getPlayableLib().setSortBy(_sort);
