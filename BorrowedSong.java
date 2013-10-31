@@ -29,14 +29,14 @@ public class BorrowedSong extends Song{
 				return false;
 			}
 			else{
-				System.out.println("You have played: " + this.toString());
+				System.out.println("You are currently playing the song titled: " +this.getName()+ '\n');
 				temp = new Date((long)(startTime.getTime() + playableTime));
 				System.out.println("Song returns on " + temp);
 				return true;
 			}		
 		}
 		else {
-			System.out.println("You have played: " + this.toString());		
+			System.out.println("You are currently playing the song titled: " +this.getName()+ '\n');		
 			playsLeft += -1;
 			System.out.println("Plays left: " + playsLeft);
 			if(playsLeft == 0){
