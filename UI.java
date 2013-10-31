@@ -144,7 +144,11 @@ private String current;
 								}
 								boolean playable = false;
 								String songrequest = reader.next();
-								int songr = Integer.parseInt(songrequest);
+								int songr = 0;
+								try{
+								     songr = Integer.parseInt(songrequest);
+								}catch(NumberFormatException e){
+									System.out.println("Invalid Input.  Please enter a number.");								}
 								if(songr < 1) {
 									System.out.println("Invald input. Please enter a correct number: \n");
 									playable = false;
@@ -317,8 +321,13 @@ private String current;
 									}
 								}
 							}
+							int songr = 0;
 							String songrequest = reader.next();
-							int songr = Integer.parseInt(songrequest);
+							try{
+							songr = Integer.parseInt(songrequest);
+							}catch(NumberFormatException e){
+								System.out.println("Invalid input. Please enter one of the numbers above.");
+							}
 							if(songr < 1) {
 								System.out.println("Invalid input. Please enter one of the numbers above.");
 								break;
@@ -1197,7 +1206,12 @@ private String current;
 							}
 							System.out.println("\nEnter the number of the friend whose library you would like to view?");
 							String songrequest = reader.next();
-							int songr = Integer.parseInt(songrequest);
+							int songr = 0;
+							try{
+								songr = Integer.parseInt(songrequest);
+							}catch(NumberFormatException e){
+								System.out.println("Invalid input given.  Please enter an integer");
+							}
 							String username = "";
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current) && songr <= UM.getUsers().get(i).getFriends().size()) {
