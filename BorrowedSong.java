@@ -25,7 +25,10 @@ public class BorrowedSong extends Song{
 	public boolean play(){
 		if(playsLeft == -1){
 			Date temp = new Date();
-			if((startTime.getTime() + playableTime) < temp.getTime()){
+			float time=(startTime.getTime() + playableTime);
+			Date temp1= new Date((long) time);
+			boolean asd=temp1.before(temp);
+			if(temp1.before(temp)){
 				return false;
 			}
 			else{
