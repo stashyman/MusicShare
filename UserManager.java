@@ -13,7 +13,7 @@ public class UserManager{
 	/*Constructor*/
 	public UserManager(LinkedList<User> _Users){
 		Users = new Hashtable<String, User>();
-		ListIterator UI = _Users.listIterator();
+		ListIterator<User> UI = _Users.listIterator();
 		while(UI.hasNext()){
 			User temp = (User)UI.next();
 			Users.put(temp.getUsername(), temp);

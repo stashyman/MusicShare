@@ -49,7 +49,7 @@ private String current;
 			System.out.println("Please Enter password for " + t + ".");
 			String q = read.next();
 			LinkedList<User> ll1 = UM.getUsers();
-			ListIterator it1 = ll1.listIterator();
+			ListIterator<User> it1 = ll1.listIterator();
 			while(it1.hasNext()){
 				User temp = (User)it1.next();
 				if(temp.getUsername().equals(t)) {
@@ -83,7 +83,7 @@ private String current;
 			System.out.println("Please Enter password for " + t + ".");
 			String q = read.next();
 			LinkedList<User> ll1 = UM.getUsers();
-			ListIterator it1 = ll1.listIterator();
+			ListIterator<User> it1 = ll1.listIterator();
 			while(it1.hasNext()){
 				User temp = (User)it1.next();
 				if(temp.getUsername().equals(t)) {
@@ -113,7 +113,6 @@ private String current;
 	}
 	public void runOutput(){
 		System.out.println("Hello " + current + ". Please enter one of the options below: \n");
-		String a = "";
 		while (true) {
 			System.out
 			.println("1. Listen to song or playlist\n\n2. Add/Edit playlist or song\n\n3. Borrow or take back a song\n\n"
@@ -146,7 +145,6 @@ private String current;
 								boolean playable = false;
 								String songrequest = reader.next();
 								int songr = Integer.parseInt(songrequest);
-								boolean input = true;
 								if(songr < 1) {
 									System.out.println("Invald input. Please enter a correct number: \n");
 									playable = false;
@@ -155,7 +153,6 @@ private String current;
 								for(int i = 0; i < UM.getUsers().size(); i++) {
 									if(UM.getUsers().get(i).getUsername().equals(current)) {
 										if(songr > UM.getUsers().get(i).playableLibrary.getSongs().size()) {
-											input = false;
 											break;
 										}
 									}
@@ -277,7 +274,6 @@ private String current;
 				b = reader.next();
 				switch (b) {
 						case "1": {
-							String[] tokens = null;
 							String[] songdata = null;
 							String songdelims = "[//(//,//)]";
 							System.out.println("Hello " + current + " Please enter the new song you want to add in the following format:");
@@ -336,7 +332,7 @@ private String current;
 									}
 								}
 							}
-							if(input = false) {
+							if(input == false) {
 								System.out.println("Invalid input. Please enter one of the numbers above.");
 								break;
 							}
@@ -521,7 +517,6 @@ private String current;
 								System.out.println("Invald input. Please enter a correct number.");
 								break;
 							}
-							boolean input = true;
 							if(songr < 1) {
 								System.out.println("Invald input. Please enter a correct number.");
 								playable = false;
@@ -531,7 +526,6 @@ private String current;
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
 									if(songr > UM.getUsers().get(i).playableLibrary.getSongs().size()) {
 										System.out.println("Invald input. Please enter a correct number.");
-										input = false;
 										break;
 									}
 								}
@@ -731,6 +725,7 @@ private String current;
 								if(input == true){
 									for(int i = 0; i < UM.getUsers().size(); i++) {
 										if(UM.getUsers().get(i).getUsername().equals(songrequest)) {
+											//DO WE NEED THIS FOR LOOP? j IS NEVER USED AND IT ONLY GOES THROUGH ONCE!!
 											for(int j = 0; j < UM.getUsers().get(i).ownedLibrary.getSongs().size();j++) {
 												SongRequest newrequest = new SongRequest(sender, receiver, "You have a new song request for the song " + UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).getName() + " from " + current, "b", UM.getUsers().get(i).ownedLibrary.getSongs().get(songr-1).getName());
 												UM.getUsers().get(i).addMessage(newrequest);
@@ -747,7 +742,6 @@ private String current;
 							System.out.println("Hello " + current + " who would you like to take a song back from?\n(Note: The user must be on your friends list.)");
 							String friend = reader.next();
 							boolean friendslist = false;
-							boolean loggedin = false;
 							//Check if user is on friends list
 							for(int i = 0; i < UM.getUsers().size(); i++) {
 								if(UM.getUsers().get(i).getUsername().equals(current)) {
@@ -1355,7 +1349,7 @@ private String current;
 					switch (b) {
 							case "1": {
 								LinkedList<User> ll = UM.getUsers();
-								ListIterator it = ll.listIterator();
+								ListIterator<User> it = ll.listIterator();
 								while(it.hasNext()){
 									User temp = (User)it.next();
 									System.out.println("Name: " + temp.getUsername() + " " + "Password: " + temp.getPassword());
@@ -1370,7 +1364,7 @@ private String current;
 									break;
 								}
 								LinkedList<Song> ll = UM.getOwnedSongs();
-								ListIterator it = ll.listIterator();
+								ListIterator<Song> it = ll.listIterator();
 								while(it.hasNext()){	
 									System.out.println(it.next().toString());
 								}

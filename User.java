@@ -28,7 +28,7 @@ public class User {
 		username = _user.getUsername();
 		password = _user.getPassword();
 		friends = new LinkedList<String>();
-		ListIterator LI = _user.getFriends().listIterator();
+		ListIterator<String> LI = _user.getFriends().listIterator();
 		while(LI.hasNext()){
 			friends.add((String)LI.next());
 		}

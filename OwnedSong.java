@@ -7,7 +7,7 @@ public class OwnedSong extends Song{
 	public OwnedSong(String Name_, String Artist_, String Album_, String year_, String composer_, String genre_, String _owner){
 		super( Name_,  Artist_,  Album_,  year_, composer_,  genre_, _owner);
 		isLent = false;
-		queue = new LinkedList();
+		queue = new LinkedList<String>();
 	}
 	public boolean Play(){
 		if(!isLent){
