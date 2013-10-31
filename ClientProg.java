@@ -5,8 +5,7 @@ import java.util.Scanner;
 
 public class ClientProg {
 	public static void main(String args[]) {
-		String filename=args[0];
-		File file = new File(filename);
+		File file = new File("test.txt");
 		String s = "";
 		//Arrays to read in data, and split the unecessary characters
 		String[] tokens = null;
@@ -88,8 +87,8 @@ public class ClientProg {
 				}
 				OwnedSong newsong = new OwnedSong(songdata[0],songdata[1],songdata[2],songdata[3],songdata[4],songdata[5],newuser.getUsername());
 				SongList.add(newsong);
-				newuser.ownedLibrary.getSongs().add(newsong);
-				newuser.playableLibrary.getSongs().add(newsong);
+				newuser.getOwnedLib().getSongs().add(newsong);
+				newuser.getPlayableLib().getSongs().add(newsong);
 				lastindex = i;
 			}
 			//Create Friends
