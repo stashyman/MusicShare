@@ -1,6 +1,8 @@
 Things to do
 ============
 
+We need to change edit metadata to also change the song that's in playable, if it's in playable. Also shouldn't be able to change metadata for lent song.
+
 We need to add all remaining assumtions to the assumtions.txt file
 
 Implememnt Jon's fixes that I overwrote
