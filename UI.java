@@ -1107,7 +1107,7 @@ private String current;
 									System.out.println("Please enter the number of minutes you want to lend a song out for.");
 									option = reader.next();
 									try{
-										int temp=Integer.parseInt(option);
+										float temp=Integer.parseInt(option);
 										if(temp<1){
 											System.out.println("You entered "+option +" which was not a valid number.");
 										}
